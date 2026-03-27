@@ -1,6 +1,6 @@
 {
   "action": "status_only",
-  "current_suite": "case141_fedgrid_ablation_custom_rr_20260327",
+  "current_suite": "case141_fedgrid_ablation_custom_rr_20260327_ms3",
   "statuses": [
     {
       "suite_name": "case141_fedgrid_robust_rr_20260326",
@@ -30,18 +30,19 @@
         "reports/figures/random_reset_delta_ploss.png": true
       },
       "monitor": null,
-      "goal": "Fill the robustness evidence gap for dropout and Byzantine variants."
+      "goal": "Fill the robustness evidence gap for dropout and Byzantine variants.",
+      "latest_log_run": "GNN-FMASAC_case141_fedgrid_v4_cluster_byzantine_seed0_20260326-193908"
     },
     {
-      "suite_name": "case141_fedgrid_ablation_custom_rr_20260327",
-      "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_ablation_custom_rr_20260327",
+      "suite_name": "case141_fedgrid_ablation_custom_rr_20260327_ms3",
+      "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_ablation_custom_rr_20260327_ms3",
       "phase": "running",
       "running": true,
-      "process_count": 0,
+      "process_count": 2,
       "recent_stdout": true,
-      "recent_stderr": true,
-      "expected_runs": 0,
-      "checkpoints": 2,
+      "recent_stderr": false,
+      "expected_runs": 15,
+      "checkpoints": 5,
       "eval_files": 0,
       "agg_files": 0,
       "report_files": 0,
@@ -60,8 +61,9 @@
         "reports/figures/random_reset_delta_ploss.png": false
       },
       "monitor": null,
-      "goal": "Run the multi-seed ablation follow-up with nodistill and gentle cluster variants."
+      "goal": "Run the multi-seed ablation follow-up with nodistill and gentle cluster variants.",
+      "latest_log_run": "GNN-FMASAC_case141_fedgrid_v4_cluster_nodistill_seed0_20260327-133534"
     }
   ],
-  "timestamp": "2026-03-27 02:18:07"
+  "timestamp": "2026-03-27 13:39:11"
 }

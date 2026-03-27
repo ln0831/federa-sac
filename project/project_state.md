@@ -49,14 +49,16 @@ Backup routes:
 - `main --dry_run --no_post` completed for `case141_fedgrid_main_rr_20260326` and wrote fresh manifests under the current workspace path.
 - Existing suites already contain manifests, checkpoints, aggregate CSVs, LaTeX tables, figures, and markdown reports.
 - `case141_fedgrid_robust_rr_20260326` completed with verified aggregate and report artifacts.
-- `case141_fedgrid_ablation_custom_rr_20260327` is now genuinely running, with active logs, checkpoints, and suite directory updates.
+- `case141_fedgrid_ablation_custom_rr_20260327` completed, but it only contains one seed because the old PowerShell launch wrapper truncated the seed list.
+- `case141_fedgrid_ablation_custom_rr_20260327_ms3` is now genuinely running as the corrected multi-seed ablation suite, with active logs and suite directory updates.
 
 ## Current Packaging Decision
 
 - `outputs/suites/case141_fedgrid_main_rr` is the main evidence package for the current paper cycle.
 - `outputs/suites/case141_fedgrid_main_rr_20260326` is a partial validation rerun, not the primary evidence suite.
 - `outputs/suites/case141_fedgrid_robust_rr_20260326` is a completed supporting suite with verified manifests, aggregate CSVs, figures, and report.
-- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327` is the active live experiment suite now running in the background.
+- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327` is a completed exploratory single-seed ablation and should not be used as the final ablation evidence package.
+- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327_ms3` is the active live experiment suite now running in the background.
 - `outputs/suites/case141_fedgrid_ablation_custom_rr_20260326` is only a failed launch artifact and should not be cited.
 
 Reason:
@@ -68,7 +70,7 @@ Reason:
 
 Current active background run:
 
-- suite: `case141_fedgrid_ablation_custom_rr_20260327`
+- suite: `case141_fedgrid_ablation_custom_rr_20260327_ms3`
 - preset: custom ablation on top of the `main` runner path
 - environment: `D:\Anaconda\envs\tianshou_env\python.exe`
 - status at latest recovery check: training log, suite directory, and checkpoints are updating; the human-readable status board shows the suite as running
@@ -77,9 +79,9 @@ Current orchestration layer:
 
 - `scripts/fedgrid_autopilot.py` performs queue inspection, safe wait behavior, postprocess recovery, and next-suite launch decisions
 - `scripts/launch_fedgrid_autopilot.ps1` can keep the autopilot loop alive in the background for this project cycle
-- current queue status: robustness is complete and the recovered `case141_fedgrid_ablation_custom_rr_20260327` is active
+- current queue status: robustness is complete and the corrected `case141_fedgrid_ablation_custom_rr_20260327_ms3` is active
 - `full` is not in the default queue
-- after the 2026-03-27 recovery patch, suite launch uses a durable `Start-Process` path, a clean suite name, and recent-log activity as a fallback running signal
+- after the 2026-03-27 recovery patch, suite launch uses a durable `Start-Process` path, a clean suite name, recent-log activity as a fallback running signal, and a non-special PowerShell variable name for the runner argument list
 
 ## Current Negative Evidence
 
@@ -91,7 +93,8 @@ Current orchestration layer:
 
 - Existing artifacts still contain some historical path drift.
 - The literature package exists, but it is still a starter set and needs broader coverage of the exact nearest-neighbor task papers.
-- The live custom ablation suite still needs final artifact verification after completion.
+- The exploratory `case141_fedgrid_ablation_custom_rr_20260327` suite should not be mistaken for the final multi-seed ablation evidence.
+- The live corrected custom ablation suite still needs final artifact verification after completion.
 - The final paper framing should remain empirical-first unless the multi-seed ablation materially changes the evidence picture.
 
 ## Publication Readiness Snapshot

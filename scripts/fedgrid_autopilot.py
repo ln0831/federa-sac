@@ -39,7 +39,7 @@ DEFAULT_QUEUE: List[SuiteSpec] = [
         goal="Fill the robustness evidence gap for dropout and Byzantine variants.",
     ),
     SuiteSpec(
-        suite_name="case141_fedgrid_ablation_custom_rr_20260327",
+        suite_name="case141_fedgrid_ablation_custom_rr_20260327_ms3",
         preset="main",
         methods="fedgrid_none,fedgrid_topo_proto,fedgrid_v4_cluster_distill,fedgrid_v4_cluster_nodistill,fedgrid_v4_cluster_gentle",
         seeds=[0, 1, 2],
@@ -74,6 +74,21 @@ REQUIRED_REPORTS = [
     ("reports", "figures", "random_reset_delta_ploss.png"),
 ]
 
+KNOWN_PRESET_METHODS: Dict[str, List[str]] = {
+    "main": ["fedgrid_none", "fedgrid_topo_proto", "fedgrid_v4_cluster_distill"],
+    "ablation": ["fedgrid_none", "fedgrid_topo_proto", "fedgrid_v4_cluster_distill"],
+    "robustness": ["fedgrid_none", "fedgrid_v4_cluster_distill", "fedgrid_v4_cluster_dropout", "fedgrid_v4_cluster_byzantine"],
+    "full": [
+        "fedgrid_none",
+        "fedgrid_topo_proto",
+        "fedgrid_v4_cluster_distill",
+        "fedgrid_v4_cluster_nodistill",
+        "fedgrid_v4_cluster_gentle",
+        "fedgrid_v4_cluster_dropout",
+        "fedgrid_v4_cluster_byzantine",
+    ],
+}
+
 DETACHED = 0
 NEW_GROUP = 0
 CREATE_NO_WINDOW = 0
@@ -81,6 +96,8 @@ if sys.platform == "win32":
     DETACHED = getattr(subprocess, "DETACHED_PROCESS", 0)
     NEW_GROUP = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
     CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+
+POWERSHELL_EXE = r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" if sys.platform == "win32" else "powershell"
 
 EPOCH_RE = re.compile(
     r"Epoch\s+(?P<epoch>\d+)\s+\[(?P<stage>[A-Z]+)\]: RewardSum\s+(?P<reward_sum>-?\d+(?:\.\d+)?)\s+\|\s+Reward/Step\s+(?P<reward_step>-?\d+(?:\.\d+)?),\s+Loss\s+(?P<loss>[^,]+),\s+Alpha\s+(?P<alpha>-?\d+(?:\.\d+)?)"
@@ -125,6 +142,19 @@ def read_run_matrix_rows(path: Path) -> int:
         return sum(1 for _ in reader)
 
 
+def planned_method_labels(spec: SuiteSpec) -> List[str]:
+    if spec.methods and spec.methods.strip() and spec.methods.strip() != "preset":
+        return [token.strip() for token in spec.methods.split(",") if token.strip()]
+    return list(KNOWN_PRESET_METHODS.get(spec.preset, []))
+
+
+def expected_run_count(spec: SuiteSpec) -> int:
+    labels = planned_method_labels(spec)
+    if not labels:
+        return 0
+    return len(labels) * len(spec.seeds)
+
+
 def required_file_status(suite_root: Path) -> Dict[str, bool]:
     status: Dict[str, bool] = {}
     for rel in REQUIRED_MANIFESTS + REQUIRED_AGG + REQUIRED_REPORTS:
@@ -159,14 +189,17 @@ $matches = @(
 )
 $matches.Count
 """.strip()
-    proc = subprocess.run(
-        ["powershell.exe", "-NoProfile", "-Command", script],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="ignore",
-        check=False,
-    )
+    try:
+        proc = subprocess.run(
+            [POWERSHELL_EXE, "-NoProfile", "-Command", script],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="ignore",
+            check=False,
+        )
+    except FileNotFoundError:
+        return 0
     try:
         return int(proc.stdout.strip() or "0")
     except ValueError:
@@ -220,6 +253,17 @@ def extract_progress(stdout_path: Path) -> Dict[str, object]:
     }
 
 
+def latest_log_run(suite_root: Path) -> Optional[str]:
+    logs_root = suite_root / "logs"
+    if not logs_root.exists():
+        return None
+    dirs = [path for path in logs_root.iterdir() if path.is_dir()]
+    if not dirs:
+        return None
+    latest = max(dirs, key=lambda path: path.stat().st_mtime)
+    return latest.name
+
+
 def is_recent(path: Path, threshold_sec: int = 180) -> bool:
     if not path.exists():
         return False
@@ -235,7 +279,7 @@ def inspect_suite(root: Path, spec: SuiteSpec) -> Dict[str, object]:
     recent_stderr = is_recent(logs["stderr"], threshold_sec=300)
     running = bool(monitor and monitor.get("running")) or process_count > 0 or recent_stdout or recent_stderr
     required = required_file_status(suite_root)
-    expected_runs = read_run_matrix_rows(suite_root / "manifests" / "fedgrid_v6_run_matrix.csv")
+    expected_runs = read_run_matrix_rows(suite_root / "manifests" / "fedgrid_v6_run_matrix.csv") or expected_run_count(spec)
     checkpoint_count = count_files(suite_root / "checkpoints")
     eval_count = count_files(suite_root / "eval")
     agg_count = count_files(suite_root / "agg")
@@ -270,6 +314,7 @@ def inspect_suite(root: Path, spec: SuiteSpec) -> Dict[str, object]:
         "required_outputs": required,
         "monitor": monitor,
         "goal": spec.goal,
+        "latest_log_run": latest_log_run(suite_root),
     }
 
 
@@ -334,10 +379,13 @@ class Autopilot:
                     f"- Phase: `{phase}`",
                     f"- Running: `{status.get('running', False)}`",
                     f"- Checkpoints: `{checkpoints}`",
-                    f"- Expected runs from manifest: `{expected_runs}`",
+                    f"- Expected runs: `{expected_runs}`",
                     f"- Goal: {goal}",
                 ]
             )
+            latest_log_run_name = status.get("latest_log_run")
+            if latest_log_run_name:
+                lines.append(f"- Latest run dir: `{latest_log_run_name}`")
             progress = extract_progress(suite_log_paths(self.root, suite_name)["stdout"])
             epoch_info = progress.get("epoch")
             if epoch_info:
@@ -391,7 +439,7 @@ class Autopilot:
 
     def launch_monitor(self, spec: SuiteSpec) -> None:
         cmd = [
-            "powershell.exe",
+            POWERSHELL_EXE,
             "-NoProfile",
             "-ExecutionPolicy",
             "Bypass",
@@ -449,13 +497,13 @@ class Autopilot:
         script = "\n".join(
             [
                 "if (Test-Path Env:PATH) { Remove-Item Env:PATH -ErrorAction SilentlyContinue }",
-                f"$args = @({args_literal})",
-                f"$proc = Start-Process -FilePath {ps_quote(self.python_exe)} -ArgumentList $args -WorkingDirectory {ps_quote(str(self.root))} -WindowStyle Hidden -RedirectStandardOutput {ps_quote(str(logs['stdout']))} -RedirectStandardError {ps_quote(str(logs['stderr']))} -PassThru",
+                f"$runnerArgs = @({args_literal})",
+                f"$proc = Start-Process -FilePath {ps_quote(self.python_exe)} -ArgumentList $runnerArgs -WorkingDirectory {ps_quote(str(self.root))} -WindowStyle Hidden -RedirectStandardOutput {ps_quote(str(logs['stdout']))} -RedirectStandardError {ps_quote(str(logs['stderr']))} -PassThru",
                 "$proc.Id",
             ]
         )
         result = subprocess.run(
-            ["powershell.exe", "-NoProfile", "-Command", script],
+            [POWERSHELL_EXE, "-NoProfile", "-Command", script],
             cwd=str(self.root),
             capture_output=True,
             text=True,

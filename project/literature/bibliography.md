@@ -2,7 +2,7 @@
 
 ## Status
 
-Initial verified external entries have been added below. This is still a starter set, not a complete literature package.
+Verified external entries have been added below. This is still not a complete literature package, but it now covers both direct task neighbors and the main clustered-FL positioning papers used in the current manuscript.
 
 ## Verified External Entries
 
@@ -10,17 +10,49 @@ Initial verified external entries have been added below. This is still a starter
 
 - Title: `Multi-Agent Reinforcement Learning for Active Voltage Control on Power Distribution Networks`
 - Authors: Jianhong Wang, Wangkun Xu, Yunjie Gu, Wenbin Song, Tim C. Green
-- Source: arXiv / NeurIPS 2021
-- URL: https://arxiv.org/abs/2110.14300
+- Source: OpenReview / NeurIPS 2021
+- URL: https://openreview.net/forum?id=hwoK62_GkiT
 - Why it matters here: direct task-level baseline for multi-agent voltage control on distribution networks
+
+### Xu et al. (KDD 2024)
+
+- Title: `Temporal Prototype-Aware Learning for Active Voltage Control on Power Distribution Networks`
+- Authors: Feiyang Xu, Shunyu Liu, Yunpeng Qing, Yihe Zhou, Yuwen Wang, Mingli Song
+- Source: OpenReview / KDD 2024
+- URL: https://openreview.net/forum?id=cKMzfkBABk
+- Why it matters here: direct active-voltage-control paper that explicitly studies longer-timescale distribution shifts; useful near-neighbor for any prototype-aware narrative
+
+### Qu et al. (2024)
+
+- Title: `Safety Constrained Multi-Agent Reinforcement Learning for Active Voltage Control`
+- Authors: Yang Qu, Jinming Ma, Feng Wu
+- Source: OpenReview / AIforCI 2024
+- URL: https://openreview.net/forum?id=I2KKVDUvHP
+- Why it matters here: direct task-level AVC paper that emphasizes constrained and safety-aware MARL rather than federated learning
+
+### Yan et al. (IEEE TSG 2024)
+
+- Title: `Multi-Agent Safe Graph Reinforcement Learning for PV Inverters-Based Real-Time Decentralized Volt/Var Control in Zoned Distribution Networks`
+- Authors: Rudai Yan, Qiang Xing, Yan Xu
+- Source: OpenReview / IEEE Transactions on Smart Grid 2024
+- URL: https://openreview.net/forum?id=uB9TMSvFTU
+- Why it matters here: graph-based decentralized voltage-control paper with a closely related control objective and 141-bus-style evaluation relevance
 
 ### Hassouna et al. (ECML 2025)
 
 - Title: `Learning Topology Actions for Power Grid Control: A Graph-Based Soft-Label Imitation Learning Approach`
-- Authors: Mohamed Hassouna, Clara Holzhüter, Malte Lehna, Matthijs de Jong, Jan Viebahn, Bernhard Sick, Christoph Scholz
+- Authors: Mohamed Hassouna, Clara Holzhuter, Malte Lehna, Matthijs de Jong, Jan Viebahn, Bernhard Sick, Christoph Scholz
 - Source: arXiv / ECML Applied Data Science Track
 - URL: https://arxiv.org/abs/2503.15190
 - Why it matters here: recent topology-aware grid-control paper with graph-based modeling, useful for positioning against other learning-based grid-control approaches
+
+### Marchesini et al. (ICLR 2026)
+
+- Title: `MARL2Grid-TR: A Multi-Agent RL Benchmark in Power Grid Operations`
+- Authors: Enrico Marchesini, Eva Boguslawski, Alessandro Leite, Christopher Amato, Matthieu Dussartre, Marc Schoenauer, Benjamin Donnot, Priya L. Donti
+- Source: OpenReview / ICLR 2026
+- URL: https://openreview.net/forum?id=mpAMH1OyMO
+- Why it matters here: broader benchmark reference showing that multi-agent evaluation discipline is becoming important in realistic grid-control settings
 
 ### Ghosh et al. (NeurIPS 2020)
 
@@ -29,6 +61,14 @@ Initial verified external entries have been added below. This is still a starter
 - Source: OpenReview / NeurIPS 2020
 - URL: https://openreview.net/forum?id=wxYFZU4dpGN
 - Why it matters here: foundational clustered federated learning reference for the method-side framing
+
+### Jothimurugesan et al. (NeurIPS Workshop 2022)
+
+- Title: `Federated Learning under Distributed Concept Drift`
+- Authors: Ellango Jothimurugesan, Kevin Hsieh, Jianyu Wang, Gauri Joshi, Phillip Gibbons
+- Source: OpenReview / NeurIPS 2022 Workshop
+- URL: https://openreview.net/forum?id=dOvcWRIcLA
+- Why it matters here: useful drift-handling FL reference for the broader shift narrative even though it is not power-systems-specific
 
 ### Li et al. (AISTATS 2026)
 
@@ -49,7 +89,7 @@ Initial verified external entries have been added below. This is still a starter
 ### Husnoo et al. (INFOCOM AidTSP 2023)
 
 - Title: `FeDiSa: A Semi-asynchronous Federated Learning Framework for Power System Fault and Cyberattack Discrimination`
-- Authors: Muhammad Akbar Husnoo, Adnan Anwar, Haftu Tasew Reda, Nasser Hosseizadeh, Shama Naz Islam, Abdun Naser Mahmood, Robin Doss
+- Authors: Muhammad Akbar Husnoo, Adnan Anwar, Haftu Tasew Reda, Nasser Hosseinzadeh, Shama Naz Islam, Abdun Naser Mahmood, Robin Doss
 - Source: arXiv / IEEE INFOCOM AidTSP 2023
 - URL: https://arxiv.org/abs/2303.16956
 - Why it matters here: useful reference for asynchronous or systems-oriented FL in power settings

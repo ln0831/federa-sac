@@ -20,7 +20,7 @@
 ## Experiments
 
 - [ ] Reproduce `main` with deterministic postprocess outputs.
-- [ ] Run custom multi-seed ablation with `fedgrid_v4_cluster_nodistill` and `fedgrid_v4_cluster_gentle` in `case141_fedgrid_ablation_custom_rr_20260327`.
+- [ ] Run custom multi-seed ablation with `fedgrid_v4_cluster_nodistill` and `fedgrid_v4_cluster_gentle` in `case141_fedgrid_ablation_custom_rr_20260327_ms3`.
 - [x] Run `robustness`.
 - [x] Decide that `full` is not auto-queued in this cycle and should remain opt-in unless robustness plus ablation leave a decisive evidence gap.
 
@@ -32,7 +32,9 @@
 - [ ] Keep `scripts/fedgrid_autopilot.py` running until the live custom ablation suite finishes cleanly.
 - [x] Repair the broken custom-ablation queue launch path.
 - [x] Recover the custom ablation under the clean suite name `case141_fedgrid_ablation_custom_rr_20260327`.
-- [ ] Verify `case141_fedgrid_ablation_custom_rr_20260327` completes with manifests, agg outputs, tables, figures, and report.
+- [x] Detect that `case141_fedgrid_ablation_custom_rr_20260327` was still only single-seed and should remain exploratory.
+- [x] Relaunch the corrected multi-seed ablation as `case141_fedgrid_ablation_custom_rr_20260327_ms3`.
+- [ ] Verify `case141_fedgrid_ablation_custom_rr_20260327_ms3` completes with manifests, agg outputs, tables, figures, and report.
 
 ## Writing
 

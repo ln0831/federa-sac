@@ -1,10 +1,15 @@
 # Introduction Draft
 
 Status:
-- not drafted
+- drafted against the current evidence package
+- keep the framing empirical-first unless the live ablation materially changes the story
 
-Planned elements:
-- why topology shift matters
-- why naive federated evaluation is insufficient
-- what this paper contributes
-- what evidence supports the claims
+Active voltage control on large distribution networks is a natural setting for decentralized or multi-agent learning, but it is also a setting where evaluation noise can easily turn into paper-level overclaiming. Topology changes, local outages, and heterogeneous operating regions mean that two methods can look different not because one is better, but because the compared rollouts are not properly aligned. This is especially risky for federated variants that introduce extra clustering, prototype-sharing, or distillation logic on top of an already nontrivial multi-agent control stack.
+
+The current repository already contains a substantial FedGrid method family and an end-to-end runtime bundle for training, deterministic evaluation, aggregation, plotting, and report generation. The question for the present paper cycle is therefore not "can we invent another variant" but "what can we defend honestly once the evaluation is tightened?" In the completed main suite for case141, the two most natural headline methods, `fedgrid_topo_proto` and `fedgrid_v4_cluster_distill`, do not show reliable positive paired return deltas on the `random_reset` topology-shift benchmark. Both methods have negative mean DeltaReturn, both increase active-power loss relative to the matched baseline, and each wins only one out of three seeds. That evidence does not support a clean superiority narrative.
+
+This observation motivates the paper's central position: deterministic, context-aligned paired evaluation is itself a meaningful research contribution for this project. The paper studies the implemented FedGrid family, but the strongest current message is empirical. We ask whether stricter evaluation changes which conclusions remain defensible, which method variants appear robust only under certain stressors, and which apparently attractive design choices fail to translate into stable paired gains.
+
+The verified literature set supports this framing. Wang et al. (2021) provide a direct multi-agent active-voltage-control reference at the task level. Hassouna et al. (2025) show the importance of graph-based structure in grid control, although for a different action space and setting. On the federated-learning side, Ghosh et al. (2020) and Li et al. (2026) justify clustered learning as a response to heterogeneity and drift, while Husnoo et al. (2023) and FeDiSa (2023) show that federated formulations are already relevant to power-system monitoring and security tasks. What remains weakly covered in the verified set is a directly matched study that combines topology-shifted active voltage control, clustered federated aggregation, and a deterministic paired evaluation protocol. That gap makes evaluation discipline central rather than peripheral.
+
+The current paper therefore makes three evidence-backed contributions. First, it turns the repository into a reproducible runtime bundle with deterministic evaluation, paired metrics, artifact checks, and paper-facing outputs. Second, it shows that the completed three-seed main benchmark does not justify a strong positive method claim for the current headline FedGrid variants. Third, it uses supporting robustness stress tests to show that the method family is context-sensitive: some variants become more promising under stress, but those observations still need multi-seed confirmation before they can be promoted to headline claims.

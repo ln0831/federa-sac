@@ -110,20 +110,76 @@ Reason:
 
 Decision:
 
-- Change `scripts/fedgrid_autopilot.py` so queued suites are launched by calling `run_case141_fedgrid_v6.py` directly with `--no_post`, instead of spawning `launch_case141_suite_chain.ps1`.
+- Change `scripts/fedgrid_autopilot.py` so queued suites are launched more directly instead of relying on the fragile suite-chain launcher path.
 
 Reason:
 
-- The custom ablation queue item could pass `dry_run`, but the background PowerShell launch path was silently failing after startup and left only empty automation logs.
-- Launching the validated runner directly removes that fragile layer while keeping postprocess under autopilot control.
+- The custom ablation queue item could pass `dry_run`, but the earlier background PowerShell launch path was silently failing after startup and left only empty automation logs.
+- Reducing orchestration layers made the launch path easier to debug.
 
 ## 2026-03-27: Add recent-log activity as a fallback running signal
 
 Decision:
 
-- Treat a suite as running when its automation stdout/stderr log was updated recently, even if process enumeration is unavailable.
+- Treat a suite as running when its automation stdout or stderr log was updated recently, even if process enumeration is unavailable.
 
 Reason:
 
 - In the current Windows sandbox, direct process enumeration is not consistently reliable.
 - The recent-log heuristic prevents duplicate launches and keeps the human-readable status board accurate enough for long runs.
+
+## 2026-03-27: Accept the completed robustness suite as supporting evidence, not headline proof
+
+Decision:
+
+- Treat `case141_fedgrid_robust_rr_20260326` as completed and verified, but keep it as supporting evidence rather than the main paper headline.
+
+Reason:
+
+- The suite produced the required manifests, aggregate CSVs, figures, LaTeX tables, and markdown report.
+- It is still a single-seed robustness suite, so it is useful for mechanism probing but not strong enough to overturn the main multi-seed benchmark posture by itself.
+
+## 2026-03-27: Recover the custom ablation under a clean suite name
+
+Decision:
+
+- Move the live custom ablation to `case141_fedgrid_ablation_custom_rr_20260327` and treat `case141_fedgrid_ablation_custom_rr_20260326` only as a failed launch artifact.
+
+Reason:
+
+- The original queue item was repeatedly "launched" but did not persist a real background run.
+- A clean dated suite name avoids mixing failed launch remnants with the recovered live ablation.
+
+## 2026-03-27: Keep the paper framing empirical-first during the live ablation
+
+Decision:
+
+- Continue writing the paper as an empirical-analysis and evaluation-protocol study while the multi-seed ablation is still running.
+
+Reason:
+
+- The completed main suite still shows negative mean paired return for the current headline methods.
+- The completed robustness suite is encouraging but not sufficient to justify a broad method-superiority story.
+- Drafting the paper now around the evidence-backed framing reduces risk and keeps the project moving while experiments finish.
+
+## 2026-03-27: Do not accept the first recovered ablation as final evidence
+
+Decision:
+
+- Treat `case141_fedgrid_ablation_custom_rr_20260327` as exploratory only and rerun the ablation under `case141_fedgrid_ablation_custom_rr_20260327_ms3`.
+
+Reason:
+
+- The suite completed cleanly, but its manifest recorded only seed `0`, so it is not the intended multi-seed ablation.
+- Using it as final ablation evidence would quietly downgrade the paper's evidence quality.
+
+## 2026-03-27: Fix the PowerShell wrapper to preserve the full seed list
+
+Decision:
+
+- Replace the wrapper variable name `$args` with `$runnerArgs` inside `scripts/fedgrid_autopilot.py` and rerun the custom ablation.
+
+Reason:
+
+- The previous wrapper used PowerShell's special `$args` variable name, which led to the launched suite behaving like a single-seed run.
+- A wrapper check confirmed that the corrected launch path now writes `seeds: [0, 1, 2]` into a dry-run manifest.

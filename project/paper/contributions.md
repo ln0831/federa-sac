@@ -1,13 +1,14 @@
 # Contribution Candidates
 
-These are candidate contributions, not locked claims.
+These are the locked contributions for the current paper cycle.
 
-## Candidate contributions
+## Current contributions
 
 - a reproducible runtime bundle for paired evaluation of FedGrid experiments
-- a context-aware analysis showing that conclusions can change under stricter paired evaluation
-- an empirical characterization of topology-aware and clustered federated variants under robustness stress
+- a context-aware empirical analysis showing that conclusions change under stricter paired evaluation
+- a supporting robustness characterization showing that the method family is context-sensitive rather than uniformly strong or uniformly weak
 
-## Locking rule
+## Excluded for now
 
-Only keep contribution bullets that remain supported after reruns and literature review.
+- do not claim broad superiority of the clustered method family
+- do not claim that single-seed exploratory ablations prove the mechanism story

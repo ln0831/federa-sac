@@ -57,6 +57,53 @@ Notes:
 
 Status:
 
+- completed and verified
+
+Use level:
+
+- supporting robustness evidence
+
+Notes:
+
+- launched after the main packaging pass to fill the robustness gap
+- contains manifests, aggregate CSVs, LaTeX tables, figures, and a markdown report
+- single-seed only, so it should support the discussion and robustness section rather than headline superiority claims
+
+### `case141_fedgrid_ablation_custom_rr_20260326`
+
+Status:
+
+- failed launch artifact
+
+Use level:
+
+- do not cite as evidence
+
+Notes:
+
+- this queue item repeatedly launched but did not persist a real background run
+- keep only as an orchestration debug artifact
+
+### `case141_fedgrid_ablation_custom_rr_20260327`
+
+Status:
+
+- completed, but exploratory only
+
+Use level:
+
+- do not use as final ablation evidence
+
+Notes:
+
+- recovered custom ablation run after the queue-launch bug was fixed
+- method set: `fedgrid_none`, `fedgrid_topo_proto`, `fedgrid_v4_cluster_distill`, `fedgrid_v4_cluster_nodistill`, `fedgrid_v4_cluster_gentle`
+- completed with only seed `0`, so it remains exploratory and should not carry the final ablation story
+
+### `case141_fedgrid_ablation_custom_rr_20260327_ms3`
+
+Status:
+
 - running
 
 Use level:
@@ -65,22 +112,6 @@ Use level:
 
 Notes:
 
-- launched after the main packaging pass to fill the robustness gap
-- now watched by the local autopilot queue so the next suite can launch without manual intervention
-- should become the key source for dropout and Byzantine claims if it completes cleanly
-
-### `case141_fedgrid_ablation_custom_rr_20260326`
-
-Status:
-
-- queued
-
-Use level:
-
-- next-priority experimental evidence after robustness
-
-Notes:
-
-- planned as a custom multi-seed ablation run, not the stock `ablation` preset
+- corrected multi-seed rerun of the custom ablation after the PowerShell wrapper seed bug was fixed
 - method set: `fedgrid_none`, `fedgrid_topo_proto`, `fedgrid_v4_cluster_distill`, `fedgrid_v4_cluster_nodistill`, `fedgrid_v4_cluster_gentle`
-- intended to clarify whether distillation and gentler clustering matter once robustness evidence is in hand
+- this is the suite that should clarify whether distillation and gentler clustering matter once robustness evidence is already in hand

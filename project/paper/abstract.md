@@ -1,9 +1,7 @@
 # Abstract Draft
 
 Status:
-- not drafted
+- evidence-backed draft for the current empirical-analysis route
+- revise again after `case141_fedgrid_ablation_custom_rr_20260327` finishes
 
-Required before drafting:
-- verified literature position
-- locked experiment status
-- final paper framing decision
+This paper studies how to evaluate topology-aware federated control methods for active voltage control under topology shift on the case141 benchmark. Instead of relying on mixed-context summaries, we use a deterministic, context-aligned runtime bundle that pairs each federated method with matched baseline rollouts and reports paired seed deltas for return, voltage violation, and active-power loss. In the completed three-seed main benchmark, neither `fedgrid_topo_proto` nor `fedgrid_v4_cluster_distill` shows a reliable advantage over the baseline on the `random_reset` benchmark: mean paired DeltaReturn is `-0.106` and `-0.173`, respectively, and each method wins only `1/3` seeds. A completed one-seed robustness suite shows that stress variants can behave differently, with `fedgrid_v4_cluster_byzantine` reaching `+0.642` paired DeltaReturn on `random_reset`, but that result is not strong enough to support a broad superiority claim because it is single-seed. The current evidence therefore supports an empirical paper about evaluation discipline, context sensitivity, and failure modes rather than a blanket new-method claim. We release the runnable training, deterministic evaluation, aggregation, table, figure, and reporting pipeline together with the current suite artifacts so the conclusions remain traceable and reproducible.

@@ -71,7 +71,8 @@ Important existing suites:
 - `outputs/suites/case141_fedgrid_tune_seed2_rr_v1`
 - `outputs/suites/case141_fedgrid_main_rr_20260326` for the validation rerun
 - `outputs/suites/case141_fedgrid_robust_rr_20260326` as the completed robustness suite
-- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327` as the recovered live custom ablation run
+- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327` as the completed single-seed exploratory ablation affected by the launch bug
+- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327_ms3` as the corrected live multi-seed custom ablation run
 - `outputs/suites/case141_fedgrid_ablation_custom_rr_20260326` only as a failed launch artifact that should not be treated as evidence
 
 Important main-suite artifacts:
@@ -96,6 +97,7 @@ Do not forget:
 - old non-deterministic follow-up results must not be used as final paper evidence
 - single-seed tuning results must not be used as headline paper evidence
 - the completed robustness suite is supporting evidence only because it is single-seed
+- the completed `case141_fedgrid_ablation_custom_rr_20260327` suite is also single-seed and must not be treated as the final ablation answer
 
 ## Current Paper Positioning
 
@@ -124,7 +126,7 @@ Current unsafe thesis:
 - some historical artifacts still reference the old path `C:\Users\ASUS\Desktop\fuxian\...`
 - the literature package now has a verified starter set, but it still needs broader coverage of nearest-neighbor task papers
 - code structure is still legacy-heavy even though documents are cleaner now
-- the live multi-seed ablation is still running, so the mechanism story is not closed
+- the corrected live multi-seed ablation is still running, so the mechanism story is not closed
 
 ## Operational Do And Don't
 
@@ -165,7 +167,8 @@ Near-term:
 - treat `case141_fedgrid_main_rr` as the main evidence package
 - use `case141_fedgrid_main_rr_20260326` only as validation evidence for the current environment and dry run
 - treat `case141_fedgrid_robust_rr_20260326` as completed supporting robustness evidence
-- let `case141_fedgrid_ablation_custom_rr_20260327` finish as the key multi-seed ablation suite for the current cycle
+- treat `case141_fedgrid_ablation_custom_rr_20260327` as exploratory single-seed evidence only
+- let `case141_fedgrid_ablation_custom_rr_20260327_ms3` finish as the key multi-seed ablation suite for the current cycle
 - keep drafting the paper around the empirical-analysis framing while the live ablation runs
 
 After that:
