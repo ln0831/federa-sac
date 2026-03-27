@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrrrr}
+\hline
+Method & $\Delta$Return & 95\% CI & $\Delta$VViol & $\Delta$PLoss & Better Seeds \\
+\hline
+[case=141, k=6, policy=, radius=] fedgrid\_v4\_cluster\_nodistill & 0.008 & [0.008, 0.008] & 0.0000 & -0.00021 & 1/1 \\
+[case=141, k=6, policy=, radius=] fedgrid\_v4\_cluster\_gentle & -0.053 & [-0.053, -0.053] & 0.0000 & 0.00137 & 0/1 \\
+[case=141, k=6, policy=, radius=] fedgrid\_topo\_proto & -0.054 & [-0.054, -0.054] & 0.0000 & 0.00141 & 0/1 \\
+[case=141, k=6, policy=, radius=] fedgrid\_v4\_cluster\_distill & -0.097 & [-0.097, -0.097] & 0.0000 & 0.00253 & 0/1 \\
+\hline
+\end{tabular}
+\caption{Appendix paired-seed results on the static in-distribution setting.}
+\label{tab:fedgrid-appendix-static}
+\end{table}

@@ -1,0 +1,70 @@
+{
+  "suite_name": "case141_fedgrid_robust_rr_20260326",
+  "suite_preset": "robustness",
+  "paper_tag": "main_table",
+  "project_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle",
+  "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_robust_rr_20260326",
+  "seeds": [
+    0
+  ],
+  "methods": [
+    {
+      "label": "fedgrid_none",
+      "fed_mode": "none",
+      "group": "baseline"
+    },
+    {
+      "label": "fedgrid_v4_cluster_distill",
+      "fed_mode": "topo_proto",
+      "fed_proto_source": "hybrid",
+      "fed_clustered": true,
+      "fed_cluster_knn": 2,
+      "fed_cluster_threshold": 0.58,
+      "fed_max_clusters": 4,
+      "fed_inter_cluster_scale": 0.08,
+      "fed_cluster_self_boost": 0.1,
+      "fed_distill_coef": 0.1,
+      "fed_distill_steps": 1,
+      "fed_distill_batch_size": 128,
+      "fed_distill_same_cluster_only": true,
+      "group": "main"
+    },
+    {
+      "label": "fedgrid_v4_cluster_dropout",
+      "fed_mode": "topo_proto",
+      "fed_proto_source": "hybrid",
+      "fed_clustered": true,
+      "fed_cluster_knn": 2,
+      "fed_cluster_threshold": 0.58,
+      "fed_max_clusters": 4,
+      "fed_inter_cluster_scale": 0.08,
+      "fed_cluster_self_boost": 0.1,
+      "fed_distill_coef": 0.1,
+      "fed_distill_steps": 1,
+      "fed_distill_batch_size": 128,
+      "fed_distill_same_cluster_only": true,
+      "fed_client_dropout": 0.25,
+      "group": "robustness"
+    },
+    {
+      "label": "fedgrid_v4_cluster_byzantine",
+      "fed_mode": "topo_proto",
+      "fed_proto_source": "hybrid",
+      "fed_clustered": true,
+      "fed_cluster_knn": 2,
+      "fed_cluster_threshold": 0.58,
+      "fed_max_clusters": 4,
+      "fed_inter_cluster_scale": 0.08,
+      "fed_cluster_self_boost": 0.1,
+      "fed_distill_coef": 0.1,
+      "fed_distill_steps": 1,
+      "fed_distill_batch_size": 128,
+      "fed_distill_same_cluster_only": true,
+      "fed_byzantine_frac": 0.25,
+      "fed_byzantine_mode": "noise",
+      "fed_byzantine_strength": 0.5,
+      "group": "robustness"
+    }
+  ],
+  "matrix_csv": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_robust_rr_20260326\\manifests\\fedgrid_v6_run_matrix.csv"
+}

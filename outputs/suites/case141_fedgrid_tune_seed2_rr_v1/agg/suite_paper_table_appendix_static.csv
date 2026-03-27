@@ -1,0 +1,5 @@
+case,outage_k,outage_policy,outage_radius,topology_mode,method,delta_return,ci95_return,delta_vviol,delta_ploss,better_seeds,paper_score
+141,6,,,static,fedgrid_v4_cluster_nodistill,0.008,"[0.008, 0.008]",0.0000,-0.00021,1/1,0.166
+141,6,,,static,fedgrid_v4_cluster_gentle,-0.053,"[-0.053, -0.053]",0.0000,0.00137,0/1,-1.083
+141,6,,,static,fedgrid_topo_proto,-0.054,"[-0.054, -0.054]",0.0000,0.00141,0/1,-1.115
+141,6,,,static,fedgrid_v4_cluster_distill,-0.097,"[-0.097, -0.097]",0.0000,0.00253,0/1,-2.003

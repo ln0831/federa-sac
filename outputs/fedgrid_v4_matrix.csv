@@ -1,0 +1,6 @@
+label,fed_mode,ckpt,fed_proto_source,fed_clustered,fed_cluster_knn,fed_cluster_threshold,fed_max_clusters,fed_inter_cluster_scale,fed_cluster_self_boost,fed_distill_coef,fed_distill_steps,fed_distill_batch_size,fed_distill_same_cluster_only,fed_client_dropout,fed_byzantine_frac,fed_byzantine_mode,fed_byzantine_strength
+fedgrid_none,none,/mnt/data/work/fedgrid_refactor_v4/outputs/checkpoints/best_case141_fedgrid_none_seed0.pth,,,,,,,,,,,,,,,
+fedgrid_topo_proto,topo_proto,/mnt/data/work/fedgrid_refactor_v4/outputs/checkpoints/best_case141_fedgrid_topo_proto_seed0.pth,hybrid,,,,,,,,,,,,,,
+fedgrid_v4_cluster_distill,topo_proto,/mnt/data/work/fedgrid_refactor_v4/outputs/checkpoints/best_case141_fedgrid_v4_cluster_distill_seed0.pth,hybrid,True,2,0.58,4,0.08,0.1,0.1,1,128,True,,,,
+fedgrid_v4_cluster_dropout,topo_proto,/mnt/data/work/fedgrid_refactor_v4/outputs/checkpoints/best_case141_fedgrid_v4_cluster_dropout_seed0.pth,hybrid,True,2,0.58,4,0.08,0.1,0.1,1,128,True,0.25,,,
+fedgrid_v4_cluster_byzantine,topo_proto,/mnt/data/work/fedgrid_refactor_v4/outputs/checkpoints/best_case141_fedgrid_v4_cluster_byzantine_seed0.pth,hybrid,True,2,0.58,4,0.08,0.1,0.1,1,128,True,,0.25,noise,0.5

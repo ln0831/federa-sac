@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrrrr}
+\hline
+Method & $\Delta$Return & 95\% CI & $\Delta$VViol & $\Delta$PLoss & Better Seeds \\
+\hline
+[case=141, k=6, policy=, radius=] fedgrid\_v4\_cluster\_nodistill & 0.008 & [0.008, 0.008] & 0.0000 & -0.00020 & 1/1 \\
+[case=141, k=6, policy=, radius=] fedgrid\_v4\_cluster\_gentle & -0.053 & [-0.053, -0.053] & 0.0000 & 0.00137 & 0/1 \\
+[case=141, k=6, policy=, radius=] fedgrid\_topo\_proto & -0.054 & [-0.054, -0.054] & 0.0000 & 0.00142 & 0/1 \\
+[case=141, k=6, policy=, radius=] fedgrid\_v4\_cluster\_distill & -0.099 & [-0.099, -0.099] & 0.0000 & 0.00259 & 0/1 \\
+\hline
+\end{tabular}
+\caption{Main paired-seed results on the random-reset topology-shift benchmark. Positive DeltaReturn is better; negative DeltaVViol and DeltaPLoss are better.}
+\label{tab:fedgrid-main-random-reset}
+\end{table}

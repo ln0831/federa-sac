@@ -1,0 +1,113 @@
+============================================================
+Start Training GNN-FMASAC: 141
+   Architecture: Graph Convolutional Mixer (Topology Aware)
+   Batch=64, ActorLR=0.0003, CriticLR=0.0003, Gamma=0.9
+============================================================
+[Env] 正在通过 Python Loader 构建 case141 网络...
+[Env] 已添加 14 个 PV (2.0 MVA) 和 5 个 SVC。
+[Env] Case 141 网络构建及缓存完成。
+[Env] 正在通过 Python Loader 构建 case141 网络...
+[Env] 已添加 14 个 PV (2.0 MVA) 和 5 个 SVC。
+[Env] Case 141 网络构建及缓存完成。
+[GNN] Building agent adjacency for GraphMixer...
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 0 [WARMUP]: RewardSum -15.11 | Reward/Step -0.16, Loss 0.3934 MW, Alpha 0.200
+  --> Validation: Sum -9.58 | PerStep -0.10 (Best: -inf)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 1 [WARMUP]: RewardSum -15.60 | Reward/Step -0.16, Loss 0.4061 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 2 [WARMUP]: RewardSum -16.65 | Reward/Step -0.17, Loss 0.4336 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 3 [WARMUP]: RewardSum -15.55 | Reward/Step -0.16, Loss 0.4051 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 4 [WARMUP]: RewardSum -15.81 | Reward/Step -0.16, Loss 0.4118 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 5 [WARMUP]: RewardSum -15.93 | Reward/Step -0.17, Loss 0.4150 MW, Alpha 0.200
+  --> Validation: Sum -9.81 | PerStep -0.10 (Best: -9.58)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 6 [WARMUP]: RewardSum -15.89 | Reward/Step -0.17, Loss 0.4138 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 7 [WARMUP]: RewardSum -14.54 | Reward/Step -0.15, Loss 0.3786 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 8 [WARMUP]: RewardSum -15.49 | Reward/Step -0.16, Loss 0.4033 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 9 [WARMUP]: RewardSum -15.71 | Reward/Step -0.16, Loss 0.4091 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 10 [WARMUP]: RewardSum -14.74 | Reward/Step -0.15, Loss 0.3838 MW, Alpha 0.200
+  --> Validation: Sum -9.62 | PerStep -0.10 (Best: -9.58)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 11 [WARMUP]: RewardSum -13.46 | Reward/Step -0.14, Loss 0.3505 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 12 [WARMUP]: RewardSum -13.67 | Reward/Step -0.14, Loss 0.3561 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 13 [WARMUP]: RewardSum -12.68 | Reward/Step -0.13, Loss 0.3301 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 14 [WARMUP]: RewardSum -15.26 | Reward/Step -0.16, Loss 0.3974 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 15 [WARMUP]: RewardSum -14.31 | Reward/Step -0.15, Loss 0.3726 MW, Alpha 0.200
+  --> Validation: Sum -9.53 | PerStep -0.10 (Best: -9.58)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 16 [WARMUP]: RewardSum -13.43 | Reward/Step -0.14, Loss 0.3497 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 17 [WARMUP]: RewardSum -15.48 | Reward/Step -0.16, Loss 0.4031 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 18 [WARMUP]: RewardSum -14.98 | Reward/Step -0.16, Loss 0.3902 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 19 [WARMUP]: RewardSum -16.17 | Reward/Step -0.17, Loss 0.4212 MW, Alpha 0.200
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 20 [TRAIN]: RewardSum -15.99 | Reward/Step -0.17, Loss 0.4163 MW, Alpha 0.200
+  --> Validation: Sum -9.53 | PerStep -0.10 (Best: -9.53)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 21 [TRAIN]: RewardSum -15.16 | Reward/Step -0.16, Loss 0.3947 MW, Alpha 0.195
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 22 [TRAIN]: RewardSum -15.49 | Reward/Step -0.16, Loss 0.4035 MW, Alpha 0.190
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 23 [TRAIN]: RewardSum -14.25 | Reward/Step -0.15, Loss 0.3710 MW, Alpha 0.185
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 24 [TRAIN]: RewardSum -14.76 | Reward/Step -0.15, Loss 0.3844 MW, Alpha 0.180
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 25 [TRAIN]: RewardSum -12.84 | Reward/Step -0.13, Loss 0.3343 MW, Alpha 0.178
+  --> Validation: Sum -6.15 | PerStep -0.06 (Best: -9.53)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 26 [TRAIN]: RewardSum -12.66 | Reward/Step -0.13, Loss 0.3297 MW, Alpha 0.173
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 27 [TRAIN]: RewardSum -13.43 | Reward/Step -0.14, Loss 0.3498 MW, Alpha 0.169
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 28 [TRAIN]: RewardSum -12.71 | Reward/Step -0.13, Loss 0.3310 MW, Alpha 0.165
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 29 [TRAIN]: RewardSum -12.38 | Reward/Step -0.13, Loss 0.3223 MW, Alpha 0.161
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 30 [TRAIN]: RewardSum -13.26 | Reward/Step -0.14, Loss 0.3454 MW, Alpha 0.157
+  --> Validation: Sum -4.90 | PerStep -0.05 (Best: -6.15)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 31 [TRAIN]: RewardSum -12.66 | Reward/Step -0.13, Loss 0.3296 MW, Alpha 0.153
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 32 [TRAIN]: RewardSum -12.11 | Reward/Step -0.13, Loss 0.3154 MW, Alpha 0.150
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 33 [TRAIN]: RewardSum -11.16 | Reward/Step -0.12, Loss 0.2908 MW, Alpha 0.147
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 34 [TRAIN]: RewardSum -11.25 | Reward/Step -0.12, Loss 0.2930 MW, Alpha 0.143
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 35 [TRAIN]: RewardSum -14.06 | Reward/Step -0.15, Loss 0.3661 MW, Alpha 0.140
+  --> Validation: Sum -5.05 | PerStep -0.05 (Best: -4.90)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 36 [TRAIN]: RewardSum -13.18 | Reward/Step -0.14, Loss 0.3432 MW, Alpha 0.137
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 37 [TRAIN]: RewardSum -12.80 | Reward/Step -0.13, Loss 0.3334 MW, Alpha 0.136
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 38 [TRAIN]: RewardSum -11.16 | Reward/Step -0.12, Loss 0.2906 MW, Alpha 0.133
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 39 [TRAIN]: RewardSum -13.54 | Reward/Step -0.14, Loss 0.3526 MW, Alpha 0.130
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 40 [TRAIN]: RewardSum -12.05 | Reward/Step -0.13, Loss 0.3139 MW, Alpha 0.128
+  --> Validation: Sum -4.16 | PerStep -0.04 (Best: -4.90)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 41 [TRAIN]: RewardSum -11.76 | Reward/Step -0.12, Loss 0.3062 MW, Alpha 0.125
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 42 [TRAIN]: RewardSum -12.61 | Reward/Step -0.13, Loss 0.3284 MW, Alpha 0.123
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 43 [TRAIN]: RewardSum -11.64 | Reward/Step -0.12, Loss 0.3031 MW, Alpha 0.121
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 44 [TRAIN]: RewardSum -11.89 | Reward/Step -0.12, Loss 0.3097 MW, Alpha 0.119
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)

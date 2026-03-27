@@ -1,0 +1,13 @@
+============================================================
+Start Training GNN-FMASAC: 141
+   Architecture: Graph Convolutional Mixer (Topology Aware)
+   Batch=64, ActorLR=0.0003, CriticLR=0.0003, Gamma=0.9
+============================================================
+[Env] 正在通过 Python Loader 构建 case141 网络...
+[Env] 已添加 14 个 PV (2.0 MVA) 和 5 个 SVC。
+[Env] Case 141 网络构建及缓存完成。
+[Env] 正在通过 Python Loader 构建 case141 网络...
+[Env] 已添加 14 个 PV (2.0 MVA) 和 5 个 SVC。
+[Env] Case 141 网络构建及缓存完成。
+[GNN] Building agent adjacency for GraphMixer...
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)

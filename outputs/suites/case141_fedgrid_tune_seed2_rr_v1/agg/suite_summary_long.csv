@@ -1,0 +1,17 @@
+compare_label,seed,algo,case,topology_mode,outage_k,outage_policy,outage_radius,return_mean,return_std,v_viol_lin_mean,p_loss_mean,n_components_mean
+fedgrid_topo_proto,2,fedgrid_none,141,static,6,,,-3.2330494676524424,0.042590953699398276,0.0,0.08419399655344903,1.0
+fedgrid_topo_proto,2,fedgrid_topo_proto,141,static,6,,,-3.2871269371675367,0.04470488059512974,0.0,0.08560226398873794,1.0
+fedgrid_topo_proto,2,fedgrid_none,141,random_reset,6,,,-3.252669929791602,0.06208444862151726,0.0,0.08470494608832298,1.0
+fedgrid_topo_proto,2,fedgrid_topo_proto,141,random_reset,6,,,-3.3071118400673734,0.06183023238188706,0.0,0.08612270416842119,1.0
+fedgrid_v4_cluster_distill,2,fedgrid_none,141,static,6,,,-3.2330494676524424,0.042590953699398276,0.0,0.08419399655344903,1.0
+fedgrid_v4_cluster_distill,2,fedgrid_v4_cluster_distill,141,static,6,,,-3.330191146863867,0.04661149056641203,0.0,0.0867237277829132,1.0
+fedgrid_v4_cluster_distill,2,fedgrid_none,141,random_reset,6,,,-3.252669929791602,0.06208444862151726,0.0,0.08470494608832298,1.0
+fedgrid_v4_cluster_distill,2,fedgrid_v4_cluster_distill,141,random_reset,6,,,-3.352138217269701,0.0652493140657029,0.0,0.08729526607473179,1.0
+fedgrid_v4_cluster_gentle,2,fedgrid_none,141,static,6,,,-3.2330494676524424,0.042590953699398276,0.0,0.08419399655344903,1.0
+fedgrid_v4_cluster_gentle,2,fedgrid_v4_cluster_gentle,141,static,6,,,-3.285589330560407,0.042958355494989824,0.0,0.08556222215001061,1.0
+fedgrid_v4_cluster_gentle,2,fedgrid_none,141,random_reset,6,,,-3.252669929791602,0.06208444862151726,0.0,0.08470494608832298,1.0
+fedgrid_v4_cluster_gentle,2,fedgrid_v4_cluster_gentle,141,random_reset,6,,,-3.305402004885715,0.06136778766433971,0.0,0.0860781772105655,1.0
+fedgrid_v4_cluster_nodistill,2,fedgrid_none,141,static,6,,,-3.2330494676524424,0.042590953699398276,0.0,0.08419399655344903,1.0
+fedgrid_v4_cluster_nodistill,2,fedgrid_v4_cluster_nodistill,141,static,6,,,-3.2250197547268753,0.04460611711668355,0.0,0.08398488944601236,1.0
+fedgrid_v4_cluster_nodistill,2,fedgrid_none,141,random_reset,6,,,-3.252669929791602,0.06208444862151726,0.0,0.08470494608832298,1.0
+fedgrid_v4_cluster_nodistill,2,fedgrid_v4_cluster_nodistill,141,random_reset,6,,,-3.245001042587745,0.06275886563930125,0.0,0.08450523548405584,1.0

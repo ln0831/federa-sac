@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\fuxian\fedgrid_runtime_bundle_v1\runtime_bundle\train_gnn_fedgrid.py", line 1335, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\fuxian\fedgrid_runtime_bundle_v1\runtime_bundle\train_gnn_fedgrid.py", line 1259, in main
+    fed_last_distill_loss = distill_actors_from_peers(
+  File "C:\Users\ASUS\Desktop\fuxian\fedgrid_runtime_bundle_v1\runtime_bundle\fedgrid_federated.py", line 774, in distill_actors_from_peers
+    teacher_mu = torch.stack([teacher_stats[j][0] for j in range(n)], dim=0)
+RuntimeError: stack expects each tensor to be equal size, but got [128, 9] at entry 0 and [128, 12] at entry 1
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\fuxian\fedgrid_runtime_bundle_v1\runtime_bundle\run_case141_fedgrid_v6.py", line 389, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\fuxian\fedgrid_runtime_bundle_v1\runtime_bundle\run_case141_fedgrid_v6.py", line 330, in main
+    run(train_cmd, cwd=project_root, dry_run=args.dry_run)
+  File "C:\Users\ASUS\Desktop\fuxian\fedgrid_runtime_bundle_v1\runtime_bundle\run_case141_fedgrid_v6.py", line 97, in run
+    subprocess.run(list(map(str, cmd)), cwd=str(cwd), check=True)
+  File "D:\Anaconda\envs\tianshou_env\lib\subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['D:\\Anaconda\\envs\\tianshou_env\\python.exe', 'C:\\Users\\ASUS\\Desktop\\fuxian\\fedgrid_runtime_bundle_v1\\runtime_bundle\\train_gnn_fedgrid.py', '--save_dir', 'C:\\Users\\ASUS\\Desktop\\fuxian\\fedgrid_runtime_bundle_v1\\runtime_bundle\\outputs\\suites\\case141_fedgrid_main_rr\\checkpoints', '--log_dir', 'C:\\Users\\ASUS\\Desktop\\fuxian\\fedgrid_runtime_bundle_v1\\runtime_bundle\\outputs\\suites\\case141_fedgrid_main_rr\\logs', '--exp_name', 'case141_fedgrid_v4_cluster_distill_seed0', '--case', '141', '--gpu', '0', '--epochs', '100', '--val_episodes', '5', '--topology_mode', 'random_reset', '--outage_k', '6', '--outage_policy', 'local', '--outage_radius', '2', '--avoid_slack_hops', '1', '--topology_seed', '0', '--bus_gnn_scope', 'global', '--mixer_gat_ramp_epochs', '50', '--mixer_gate_init_bias', '-5.0', '--mixer_gnn_lr_scale', '0.1', '--mixer_gate_lr_scale', '0.1', '--edge_drop', '0.1', '--bus_gnn_lr_scale', '0.1', '--bus_gnn_use_base_topology', '--mixer_use_base_topology', '--fed_mode', 'topo_proto', '--fed_proto_source', 'hybrid', '--fed_clustered', '--fed_cluster_knn', '2', '--fed_cluster_threshold', '0.58', '--fed_max_clusters', '4', '--fed_inter_cluster_scale', '0.08', '--fed_cluster_self_boost', '0.1', '--fed_distill_coef', '0.1', '--fed_distill_steps', '1', '--fed_distill_batch_size', '128', '--fed_distill_same_cluster_only']' returned non-zero exit status 1.

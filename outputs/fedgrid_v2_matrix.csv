@@ -1,0 +1,7 @@
+label,fed_mode,fed_proto_source,ckpt,fed_client_dropout,fed_byzantine_frac,fed_byzantine_mode,fed_byzantine_strength
+fedgrid_none,none,hybrid,/mnt/data/fedgrid_refactor_v2/outputs/checkpoints/best_case141_fedgrid_none_seed0.pth,,,,
+fedgrid_topo,topo,hybrid,/mnt/data/fedgrid_refactor_v2/outputs/checkpoints/best_case141_fedgrid_topo_seed0.pth,,,,
+fedgrid_topo_proto,topo_proto,hybrid,/mnt/data/fedgrid_refactor_v2/outputs/checkpoints/best_case141_fedgrid_topo_proto_seed0.pth,,,,
+fedgrid_consensus,consensus,hybrid,/mnt/data/fedgrid_refactor_v2/outputs/checkpoints/best_case141_fedgrid_consensus_seed0.pth,,,,
+fedgrid_dropout,topo_proto,hybrid,/mnt/data/fedgrid_refactor_v2/outputs/checkpoints/best_case141_fedgrid_dropout_seed0.pth,0.25,,,
+fedgrid_byzantine,topo_proto,hybrid,/mnt/data/fedgrid_refactor_v2/outputs/checkpoints/best_case141_fedgrid_byzantine_seed0.pth,,0.25,noise,0.5
