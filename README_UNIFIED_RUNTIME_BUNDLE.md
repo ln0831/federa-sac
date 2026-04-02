@@ -33,6 +33,21 @@ cd fedgrid_runtime_bundle_v1
 python scripts/check_runtime_bundle.py --project_root .
 ```
 
+## 目录分层
+
+- 根目录 `*.py`：当前可运行的训练 / 评测 / 汇总事实源
+- `project_docs/`：项目文档总入口
+- `docs/`：运行说明、版本映射、结果检查和论文映射
+- `project/`：论文写作与研究管理工作区
+- `outputs/suites/`：保留的实验结果资产
+- `skills/` 与 `dist/skill.zip`：可复用 skill 源和打包产物
+
+目录说明补充见：
+
+- `project_docs/PROJECT_DOCUMENT.md`
+- `project_docs/README.md`
+- `docs/WORKSPACE_LAYOUT.md`
+
 ## 最短启动路径
 
 ### 1. 预检
@@ -92,9 +107,12 @@ bash scripts/run_postprocess.sh python outputs/suites/case141_fedgrid_main_rr
 4. `docs/CLAUDE_CODEX_EXECUTION_GUIDE.md`
 5. `docs/RESULTS_CHECKLIST.md`
 6. `docs/PAPER_TABLE_MAPPING.md`
+7. `docs/WORKSPACE_LAYOUT.md`
+8. `project_docs/README.md`
 
 For the curated document map, see:
 
+- `project_docs/README.md`
 - `docs/README.md`
 
 ## Skill

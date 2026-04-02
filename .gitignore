@@ -1,0 +1,19 @@
+# Python caches
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+# Scratch experiment outputs
+outputs/tmp_ablation_smoke/
+outputs/suites/*_dry/
+outputs/suites/*wrappercheck/
+
+# Runtime monitor noise
+outputs/automation_logs/*.log
+outputs/automation_logs/*.stdout.log
+outputs/automation_logs/*.monitor.log
+outputs/automation_logs/*.monitor.json
+outputs/automation_logs/fedgrid_autopilot_state.json
+
+# TensorBoard event streams generated during local runs
+outputs/suites/*/logs/**/events.out.tfevents.*

@@ -1,0 +1,40 @@
+{
+  "suite_name": "case141_fedgrid_main_rr_20260402_clean",
+  "suite_preset": "main",
+  "paper_tag": "main_table",
+  "project_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle",
+  "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_main_rr_20260402_clean",
+  "seeds": [
+    1
+  ],
+  "methods": [
+    {
+      "label": "fedgrid_none",
+      "fed_mode": "none",
+      "group": "baseline"
+    },
+    {
+      "label": "fedgrid_topo_proto",
+      "fed_mode": "topo_proto",
+      "fed_proto_source": "hybrid",
+      "group": "baseline_plus"
+    },
+    {
+      "label": "fedgrid_v4_cluster_distill",
+      "fed_mode": "topo_proto",
+      "fed_proto_source": "hybrid",
+      "fed_clustered": true,
+      "fed_cluster_knn": 2,
+      "fed_cluster_threshold": 0.58,
+      "fed_max_clusters": 4,
+      "fed_inter_cluster_scale": 0.08,
+      "fed_cluster_self_boost": 0.1,
+      "fed_distill_coef": 0.1,
+      "fed_distill_steps": 1,
+      "fed_distill_batch_size": 128,
+      "fed_distill_same_cluster_only": true,
+      "group": "main"
+    }
+  ],
+  "matrix_csv": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_main_rr_20260402_clean\\manifests\\fedgrid_v6_run_matrix.csv"
+}

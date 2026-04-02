@@ -1,6 +1,6 @@
 {
   "action": "status_only",
-  "current_suite": "case141_fedgrid_ablation_custom_rr_20260327_ms3",
+  "current_suite": null,
   "statuses": [
     {
       "suite_name": "case141_fedgrid_robust_rr_20260326",
@@ -36,34 +36,34 @@
     {
       "suite_name": "case141_fedgrid_ablation_custom_rr_20260327_ms3",
       "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_ablation_custom_rr_20260327_ms3",
-      "phase": "running",
-      "running": true,
-      "process_count": 2,
-      "recent_stdout": true,
+      "phase": "complete",
+      "running": false,
+      "process_count": 0,
+      "recent_stdout": false,
       "recent_stderr": false,
       "expected_runs": 15,
-      "checkpoints": 5,
-      "eval_files": 0,
-      "agg_files": 0,
-      "report_files": 0,
+      "checkpoints": 16,
+      "eval_files": 60,
+      "agg_files": 10,
+      "report_files": 8,
       "required_outputs": {
-        "manifests/fedgrid_v6_run_matrix.csv": false,
-        "manifests/fedgrid_v6_commands.csv": false,
-        "manifests/fedgrid_v6_suite_manifest.json": false,
-        "agg/suite_absolute_metrics.csv": false,
-        "agg/suite_paired_metrics.csv": false,
-        "agg/suite_rankings.csv": false,
-        "reports/fedgrid_v6_report.md": false,
-        "reports/latex/table_main_random_reset.tex": false,
-        "reports/latex/table_appendix_static.tex": false,
-        "reports/figures/random_reset_delta_return.png": false,
-        "reports/figures/random_reset_delta_vviol.png": false,
-        "reports/figures/random_reset_delta_ploss.png": false
+        "manifests/fedgrid_v6_run_matrix.csv": true,
+        "manifests/fedgrid_v6_commands.csv": true,
+        "manifests/fedgrid_v6_suite_manifest.json": true,
+        "agg/suite_absolute_metrics.csv": true,
+        "agg/suite_paired_metrics.csv": true,
+        "agg/suite_rankings.csv": true,
+        "reports/fedgrid_v6_report.md": true,
+        "reports/latex/table_main_random_reset.tex": true,
+        "reports/latex/table_appendix_static.tex": true,
+        "reports/figures/random_reset_delta_return.png": true,
+        "reports/figures/random_reset_delta_vviol.png": true,
+        "reports/figures/random_reset_delta_ploss.png": true
       },
       "monitor": null,
       "goal": "Run the multi-seed ablation follow-up with nodistill and gentle cluster variants.",
-      "latest_log_run": "GNN-FMASAC_case141_fedgrid_v4_cluster_nodistill_seed0_20260327-133534"
+      "latest_log_run": "GNN-FMASAC_case141_fedgrid_v4_cluster_gentle_seed2_20260327-233519"
     }
   ],
-  "timestamp": "2026-03-27 13:39:11"
+  "timestamp": "2026-04-02 01:52:28"
 }

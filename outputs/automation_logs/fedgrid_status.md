@@ -1,8 +1,8 @@
 # FedGrid Task Status
 
-- Updated: `2026-03-27 13:39:11`
+- Updated: `2026-04-02 01:52:28`
 - Autopilot action: `status_only`
-- Current suite: `case141_fedgrid_ablation_custom_rr_20260327_ms3`
+- Current suite: `none`
 
 ## Queue
 ### case141_fedgrid_robust_rr_20260326
@@ -26,25 +26,23 @@
 ```
 
 ### case141_fedgrid_ablation_custom_rr_20260327_ms3
-- Phase: `running`
-- Running: `True`
-- Checkpoints: `5`
+- Phase: `complete`
+- Running: `False`
+- Checkpoints: `16`
 - Expected runs: `15`
 - Goal: Run the multi-seed ablation follow-up with nodistill and gentle cluster variants.
-- Latest run dir: `GNN-FMASAC_case141_fedgrid_v4_cluster_nodistill_seed0_20260327-133534`
-- Latest epoch: `8` [WARMUP] RewardSum `-15.36` Reward/Step `-0.16` Loss `0.4001 MW` Alpha `0.200`
-- Latest validation: Sum `-7.92` PerStep `-0.08` Best `-6.71`
-- Training log updated: `2026-03-27 13:39:11`
+- Latest run dir: `GNN-FMASAC_case141_fedgrid_v4_cluster_gentle_seed2_20260327-233519`
+- Training log updated: `2026-03-28 01:05:06`
 - Recent log tail:
 ```text
-Epoch 6 [WARMUP]: RewardSum -13.19 | Reward/Step -0.14, Loss 0.3434 MW, Alpha 0.200
-[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
-[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
-Epoch 7 [WARMUP]: RewardSum -15.96 | Reward/Step -0.17, Loss 0.4156 MW, Alpha 0.200
-[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
-[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
-Epoch 8 [WARMUP]: RewardSum -15.36 | Reward/Step -0.16, Loss 0.4001 MW, Alpha 0.200
-[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+[RUN] 'D:\Anaconda\envs\tianshou_env\python.exe' 'C:\Users\ASUS\Desktop\runtime_bundle\evaluate_topology_shift_deterministic.py' --case 141 --baseline_ckpt 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\checkpoints\best_case141_fedgrid_none_seed2.pth' --gnn_ckpt 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\checkpoints\best_case141_fedgrid_topo_proto_seed2.pth' --baseline_name fedgrid_none --gnn_name fedgrid_topo_proto --episodes 20 --topology_seed 2 --eval_seed_base 1000 --outage_k 6 --outage_policy local --outage_radius 2 --avoid_slack_hops 1 --gpu 0 --out_dir 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\eval\fedgrid_topo_proto_seed2'
+[RUN] 'D:\Anaconda\envs\tianshou_env\python.exe' 'C:\Users\ASUS\Desktop\runtime_bundle\evaluate_topology_shift_deterministic.py' --case 141 --baseline_ckpt 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\checkpoints\best_case141_fedgrid_none_seed2.pth' --gnn_ckpt 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\checkpoints\best_case141_fedgrid_v4_cluster_distill_seed2.pth' --baseline_name fedgrid_none --gnn_name fedgrid_v4_cluster_distill --episodes 20 --topology_seed 2 --eval_seed_base 1000 --outage_k 6 --outage_policy local --outage_radius 2 --avoid_slack_hops 1 --gpu 0 --out_dir 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\eval\fedgrid_v4_cluster_distill_seed2'
+[RUN] 'D:\Anaconda\envs\tianshou_env\python.exe' 'C:\Users\ASUS\Desktop\runtime_bundle\evaluate_topology_shift_deterministic.py' --case 141 --baseline_ckpt 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\checkpoints\best_case141_fedgrid_none_seed2.pth' --gnn_ckpt 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\checkpoints\best_case141_fedgrid_v4_cluster_nodistill_seed2.pth' --baseline_name fedgrid_none --gnn_name fedgrid_v4_cluster_nodistill --episodes 20 --topology_seed 2 --eval_seed_base 1000 --outage_k 6 --outage_policy local --outage_radius 2 --avoid_slack_hops 1 --gpu 0 --out_dir 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\eval\fedgrid_v4_cluster_nodistill_seed2'
+[RUN] 'D:\Anaconda\envs\tianshou_env\python.exe' 'C:\Users\ASUS\Desktop\runtime_bundle\evaluate_topology_shift_deterministic.py' --case 141 --baseline_ckpt 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\checkpoints\best_case141_fedgrid_none_seed2.pth' --gnn_ckpt 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\checkpoints\best_case141_fedgrid_v4_cluster_gentle_seed2.pth' --baseline_name fedgrid_none --gnn_name fedgrid_v4_cluster_gentle --episodes 20 --topology_seed 2 --eval_seed_base 1000 --outage_k 6 --outage_policy local --outage_radius 2 --avoid_slack_hops 1 --gpu 0 --out_dir 'C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\eval\fedgrid_v4_cluster_gentle_seed2'
+[SAVED] C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\manifests\fedgrid_v6_run_matrix.csv
+[SAVED] C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\manifests\fedgrid_v6_commands.csv
+[SAVED] C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\manifests\fedgrid_v6_suite_manifest.json
+[SAVED] C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_ablation_custom_rr_20260327_ms3\manifests\fedgrid_v6_postprocess.sh
 ```
 
 ## Files

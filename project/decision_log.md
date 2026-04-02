@@ -183,3 +183,26 @@ Reason:
 
 - The previous wrapper used PowerShell's special `$args` variable name, which led to the launched suite behaving like a single-seed run.
 - A wrapper check confirmed that the corrected launch path now writes `seeds: [0, 1, 2]` into a dry-run manifest.
+
+## 2026-03-28: Accept `case141_fedgrid_ablation_custom_rr_20260327_ms3` as the final ablation evidence suite
+
+Decision:
+
+- Treat `case141_fedgrid_ablation_custom_rr_20260327_ms3` as the final ablation evidence package for the current paper cycle.
+
+Reason:
+
+- The suite now has the full artifact set: manifests, aggregate CSVs, LaTeX tables, figures, and markdown report.
+- It closes the launch-bug recovery loop by providing the intended 3-seed ablation evidence.
+- Its evidence supports a narrower conclusion: `fedgrid_topo_proto` helps, but the clustered distillation variants do not justify a strong positive headline.
+
+## 2026-03-28: Prefer artifact completeness over stale monitor state in status classification
+
+Decision:
+
+- Update `scripts/fedgrid_autopilot.py` so a suite with a complete required artifact set is treated as complete, even if a stale monitor heartbeat still exists.
+
+Reason:
+
+- `case141_fedgrid_ablation_custom_rr_20260327_ms3` had already finished train and eval, and manual postprocess recovery produced the full artifact set.
+- The old status logic still surfaced it as `running` because only the monitor process remained, which was misleading for operational tracking.

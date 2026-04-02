@@ -279,12 +279,15 @@ def inspect_suite(root: Path, spec: SuiteSpec) -> Dict[str, object]:
     recent_stderr = is_recent(logs["stderr"], threshold_sec=300)
     running = bool(monitor and monitor.get("running")) or process_count > 0 or recent_stdout or recent_stderr
     required = required_file_status(suite_root)
+    has_required = all(required.values())
+    # If the full artifact set exists, prefer the artifact truth over a stale monitor heartbeat.
+    if has_required:
+        running = False
     expected_runs = read_run_matrix_rows(suite_root / "manifests" / "fedgrid_v6_run_matrix.csv") or expected_run_count(spec)
     checkpoint_count = count_files(suite_root / "checkpoints")
     eval_count = count_files(suite_root / "eval")
     agg_count = count_files(suite_root / "agg")
     report_count = count_files(suite_root / "reports")
-    has_required = all(required.values())
     postprocess_ready = expected_runs > 0 and checkpoint_count >= expected_runs and not running
     if not suite_root.exists() and not logs["monitor_json"].exists():
         phase = "missing"

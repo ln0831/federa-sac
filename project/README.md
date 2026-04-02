@@ -2,6 +2,10 @@
 
 This workspace follows the `paper-project-autopilot` skill and acts as the research coordination layer for the FedGrid runtime bundle.
 
+For the curated top-level document hub, start with:
+
+- `../project_docs/README.md`
+
 ## Purpose
 
 The repository root still contains the authoritative training, evaluation, and postprocess code. This `project/` directory tracks the paper workflow:

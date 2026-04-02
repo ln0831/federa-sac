@@ -72,7 +72,7 @@ Important existing suites:
 - `outputs/suites/case141_fedgrid_main_rr_20260326` for the validation rerun
 - `outputs/suites/case141_fedgrid_robust_rr_20260326` as the completed robustness suite
 - `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327` as the completed single-seed exploratory ablation affected by the launch bug
-- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327_ms3` as the corrected live multi-seed custom ablation run
+- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327_ms3` as the corrected completed multi-seed custom ablation run
 - `outputs/suites/case141_fedgrid_ablation_custom_rr_20260326` only as a failed launch artifact that should not be treated as evidence
 
 Important main-suite artifacts:
@@ -98,6 +98,8 @@ Do not forget:
 - single-seed tuning results must not be used as headline paper evidence
 - the completed robustness suite is supporting evidence only because it is single-seed
 - the completed `case141_fedgrid_ablation_custom_rr_20260327` suite is also single-seed and must not be treated as the final ablation answer
+- the completed `case141_fedgrid_ablation_custom_rr_20260327_ms3` suite is the final custom ablation evidence package for this cycle
+- in `case141_fedgrid_ablation_custom_rr_20260327_ms3`, `fedgrid_topo_proto` is positive across 3 seeds, while `fedgrid_v4_cluster_distill`, `fedgrid_v4_cluster_nodistill`, and `fedgrid_v4_cluster_gentle` are negative on paired return
 
 ## Current Paper Positioning
 
@@ -126,7 +128,7 @@ Current unsafe thesis:
 - some historical artifacts still reference the old path `C:\Users\ASUS\Desktop\fuxian\...`
 - the literature package now has a verified starter set, but it still needs broader coverage of nearest-neighbor task papers
 - code structure is still legacy-heavy even though documents are cleaner now
-- the corrected live multi-seed ablation is still running, so the mechanism story is not closed
+- the corrected multi-seed ablation is complete, but the paper-story integration is still in progress
 
 ## Operational Do And Don't
 
@@ -138,7 +140,8 @@ Do:
 - keep all claims traceable to actual artifacts
 - update `project_state.md`, `todo.md`, and `decision_log.md` after major milestones
 - use `outputs/automation_logs/fedgrid_status.md` as the first-stop operational status board
-- let the default autopilot queue finish the live custom multi-seed ablation suite before deciding whether any more expensive rerun is justified
+- treat a completed full artifact set as the ground truth even if a stale monitor heartbeat keeps the suite marked as running
+- use the corrected multi-seed ablation result before deciding whether any more expensive rerun is justified
 
 Do not:
 
@@ -168,8 +171,8 @@ Near-term:
 - use `case141_fedgrid_main_rr_20260326` only as validation evidence for the current environment and dry run
 - treat `case141_fedgrid_robust_rr_20260326` as completed supporting robustness evidence
 - treat `case141_fedgrid_ablation_custom_rr_20260327` as exploratory single-seed evidence only
-- let `case141_fedgrid_ablation_custom_rr_20260327_ms3` finish as the key multi-seed ablation suite for the current cycle
-- keep drafting the paper around the empirical-analysis framing while the live ablation runs
+- treat `case141_fedgrid_ablation_custom_rr_20260327_ms3` as the key completed multi-seed ablation suite for the current cycle
+- keep drafting the paper around the empirical-analysis framing while integrating the finished ablation evidence
 
 After that:
 

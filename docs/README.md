@@ -4,6 +4,7 @@ This directory is the curated document entrypoint for the runtime bundle.
 
 ## Start Here
 
+- `../project_docs/README.md`: consolidated human-facing document hub
 - `../README_UNIFIED_RUNTIME_BUNDLE.md`: top-level overview and shortest run path
 - `VERSION_MAP_AND_SOURCE_OF_TRUTH.md`: active source-of-truth files and version boundaries
 - `RUNTIME_EXECUTION_PLAN_20260326.md`: current execution plan for this workspace
