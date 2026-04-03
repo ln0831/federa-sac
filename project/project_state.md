@@ -78,6 +78,8 @@ Current execution state:
 - a fresh clean rerun of the `main` preset has now been launched as `outputs/suites/case141_fedgrid_main_rr_20260402_clean` to produce a current-workspace reproduction before the paper draft is frozen
 - the first pass of `case141_fedgrid_main_rr_20260402_clean` only covered `seed0`; `seed1` and `seed2` are now being resumed into the same suite with `-SkipExisting` so the final main evidence package becomes multi-seed rather than single-seed
 - because the historical PowerShell multi-seed launch path still binds only one seed at a time in this environment, `seed2` has been scheduled as an explicit follow-up launch after the live `seed1` resume finishes
+- on 2026-04-03, the stale `Serena Dashboard` popup issue was traced to accumulated hourly `serena.cmd` trees under the Codex app; the stale trees were terminated and the `serena` MCP entry was disabled in both `E:\Codex\config.toml` and `C:\Users\ASUS\.codex\config.toml` for future sessions
+- on 2026-04-03, `seed1` finished end to end and `seed2` was launched directly as a single-seed continuation into `case141_fedgrid_main_rr_20260402_clean` using `-Seeds 2 -SkipExisting`
 - environment: `D:\Anaconda\envs\tianshou_env\python.exe`
 - the remaining status-board mismatch came from a stale monitor heartbeat, not from ongoing training
 

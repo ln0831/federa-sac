@@ -9,8 +9,8 @@
 
 ### Context: case=141, k=6, policy=, radius=
 
-- Main benchmark best paired return on `random_reset`: **fedgrid_topo_proto** with paired Δreturn=0.078 and 95% CI [-0.016, 0.172].
-- In-distribution best paired return on `static`: **fedgrid_topo_proto** with paired Δreturn=0.080.
+- Main benchmark best paired return on `random_reset`: **fedgrid_topo_proto** with paired Δreturn=0.122 and 95% CI [-0.016, 0.208].
+- In-distribution best paired return on `static`: **fedgrid_topo_proto** with paired Δreturn=0.122.
 - Best method on `random_reset` by voltage-violation reduction: **fedgrid_topo_proto** with Δvviol=0.0000.
 - Top-3 methods on `random_reset` by paired return gain in this context: 1) fedgrid_topo_proto, 2) fedgrid_v4_cluster_distill.
 
@@ -25,15 +25,15 @@
 
 | case | k | policy | radius | method | Δreturn | 95% CI | Δvviol | Δploss | better seeds | paper score |
 |---|---:|---|---:|---|---:|---|---:|---:|---:|---:|
-| 141 | 6 |  |  | fedgrid_topo_proto | 0.078 | [-0.016, 0.172] | 0.0000 | -0.00204 | 1/2 | 1.614 |
-| 141 | 6 |  |  | fedgrid_v4_cluster_distill | -0.030 | [-0.136, 0.075] | 0.0000 | 0.00079 | 1/2 | -0.644 |
+| 141 | 6 |  |  | fedgrid_topo_proto | 0.122 | [-0.016, 0.208] | 0.0000 | -0.00317 | 2/3 | 2.499 |
+| 141 | 6 |  |  | fedgrid_v4_cluster_distill | -0.055 | [-0.136, 0.075] | 0.0000 | 0.00142 | 1/3 | -1.137 |
 
 ## Static paired table
 
 | case | k | policy | radius | method | Δreturn | 95% CI | Δvviol | Δploss | better seeds | paper score |
 |---|---:|---|---:|---|---:|---|---:|---:|---:|---:|
-| 141 | 6 |  |  | fedgrid_topo_proto | 0.080 | [-0.013, 0.172] | 0.0000 | -0.00207 | 1/2 | 1.654 |
-| 141 | 6 |  |  | fedgrid_v4_cluster_distill | -0.027 | [-0.135, 0.081] | 0.0000 | 0.00070 | 1/2 | -0.585 |
+| 141 | 6 |  |  | fedgrid_topo_proto | 0.122 | [-0.013, 0.208] | 0.0000 | -0.00319 | 2/3 | 2.531 |
+| 141 | 6 |  |  | fedgrid_v4_cluster_distill | -0.051 | [-0.135, 0.081] | 0.0000 | 0.00133 | 1/3 | -1.074 |
 
 ## Suggested results narrative
 

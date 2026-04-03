@@ -37,6 +37,7 @@
 - [x] Verify `case141_fedgrid_ablation_custom_rr_20260327_ms3` completes with manifests, agg outputs, tables, figures, and report.
 - [-] Keep the fresh `case141_fedgrid_main_rr_20260402_clean` rerun alive until the resumed `seed1/seed2` train, eval, and postprocess chain all finish.
 - [-] Verify the scheduled `seed2` follow-up actually fires after `seed1` because the PowerShell multi-seed wrapper is still truncating to a single live seed per launch in this environment.
+- [x] Remove the stale `Serena Dashboard` popups by terminating old `serena.cmd` trees and disabling the `serena` MCP entry in local Codex configs for future sessions.
 
 ## Writing
 
