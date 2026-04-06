@@ -80,8 +80,10 @@ Current execution state:
 - because the historical PowerShell multi-seed launch path still binds only one seed at a time in this environment, `seed2` has been scheduled as an explicit follow-up launch after the live `seed1` resume finishes
 - on 2026-04-03, the stale `Serena Dashboard` popup issue was traced to accumulated hourly `serena.cmd` trees under the Codex app; the stale trees were terminated and the `serena` MCP entry was disabled in both `E:\Codex\config.toml` and `C:\Users\ASUS\.codex\config.toml` for future sessions
 - on 2026-04-03, `seed1` finished end to end and `seed2` was launched directly as a single-seed continuation into `case141_fedgrid_main_rr_20260402_clean` using `-Seeds 2 -SkipExisting`
+- `case141_fedgrid_main_rr_20260402_clean` is now complete as a 3-seed package at the artifact level: 10 checkpoints, 30 eval files, aggregate CSVs, LaTeX tables, figures, and markdown report are all present
 - environment: `D:\Anaconda\envs\tianshou_env\python.exe`
 - the remaining status-board mismatch came from a stale monitor heartbeat, not from ongoing training
+- after the final `seed2` continuation completed, the remaining `running=True` state was confirmed to be only the old monitor process; the monitor was stopped and the suite should now be treated as complete
 
 Current orchestration layer:
 

@@ -19,7 +19,7 @@
 
 ## Experiments
 
-- [-] Reproduce `main` with deterministic postprocess outputs via `case141_fedgrid_main_rr_20260402_clean`; `seed0` is complete and `seed1/seed2` are now resuming into the same suite.
+- [x] Reproduce `main` with deterministic postprocess outputs via `case141_fedgrid_main_rr_20260402_clean`; the final suite now contains the completed 3-seed package.
 - [x] Run custom multi-seed ablation with `fedgrid_v4_cluster_nodistill` and `fedgrid_v4_cluster_gentle` in `case141_fedgrid_ablation_custom_rr_20260327_ms3`.
 - [x] Run `robustness`.
 - [x] Decide that `full` is not auto-queued in this cycle and should remain opt-in unless robustness plus ablation leave a decisive evidence gap.
@@ -35,8 +35,8 @@
 - [x] Detect that `case141_fedgrid_ablation_custom_rr_20260327` was still only single-seed and should remain exploratory.
 - [x] Relaunch the corrected multi-seed ablation as `case141_fedgrid_ablation_custom_rr_20260327_ms3`.
 - [x] Verify `case141_fedgrid_ablation_custom_rr_20260327_ms3` completes with manifests, agg outputs, tables, figures, and report.
-- [-] Keep the fresh `case141_fedgrid_main_rr_20260402_clean` rerun alive until the resumed `seed1/seed2` train, eval, and postprocess chain all finish.
-- [-] Verify the scheduled `seed2` follow-up actually fires after `seed1` because the PowerShell multi-seed wrapper is still truncating to a single live seed per launch in this environment.
+- [x] Keep the fresh `case141_fedgrid_main_rr_20260402_clean` rerun alive until the resumed `seed1/seed2` train, eval, and postprocess chain all finish.
+- [x] Verify the scheduled `seed2` follow-up actually fires after `seed1` because the PowerShell multi-seed wrapper is still truncating to a single live seed per launch in this environment.
 - [x] Remove the stale `Serena Dashboard` popups by terminating old `serena.cmd` trees and disabling the `serena` MCP entry in local Codex configs for future sessions.
 
 ## Writing
