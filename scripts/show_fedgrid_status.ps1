@@ -1,6 +1,8 @@
 param(
     [string]$RootDir = ".",
-    [string]$PythonExe = "python"
+    [string]$PythonExe = "python",
+    [string]$QueueJson = "",
+    [string]$LogPrefix = "fedgrid_autopilot"
 )
 
 $ErrorActionPreference = "Stop"
@@ -10,8 +12,17 @@ $env:PYTHONUTF8 = "1"
 
 $root = (Resolve-Path $RootDir).Path
 
-& $PythonExe `
-    (Join-Path $root "scripts\fedgrid_autopilot.py") `
-    --project_root $root `
-    --python_exe $PythonExe `
-    --status_only
+$args = @(
+    (Join-Path $root "scripts\fedgrid_autopilot.py"),
+    "--project_root", $root,
+    "--python_exe", $PythonExe,
+    "--log_prefix", $LogPrefix,
+    "--status_only"
+)
+
+if ($QueueJson) {
+    $args += "--queue_json"
+    $args += (Resolve-Path $QueueJson).Path
+}
+
+& $PythonExe @args

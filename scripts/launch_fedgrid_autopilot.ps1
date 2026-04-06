@@ -2,7 +2,9 @@ param(
     [string]$RootDir = ".",
     [string]$PythonExe = "python",
     [int]$IntervalSec = 300,
-    [switch]$AllowFull
+    [switch]$AllowFull,
+    [string]$QueueJson = "",
+    [string]$LogPrefix = "fedgrid_autopilot"
 )
 
 $ErrorActionPreference = "Stop"
@@ -14,8 +16,8 @@ $root = (Resolve-Path $RootDir).Path
 $logDir = Join-Path $root "outputs\automation_logs"
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 
-$stdoutPath = Join-Path $logDir "fedgrid_autopilot.stdout.log"
-$stderrPath = Join-Path $logDir "fedgrid_autopilot.stderr.log"
+$stdoutPath = Join-Path $logDir ($LogPrefix + ".stdout.log")
+$stderrPath = Join-Path $logDir ($LogPrefix + ".stderr.log")
 
 if (Test-Path Env:PATH) {
     Remove-Item Env:PATH -ErrorAction SilentlyContinue
@@ -25,12 +27,18 @@ $args = @(
     (Join-Path $root "scripts\fedgrid_autopilot.py"),
     "--project_root", $root,
     "--python_exe", $PythonExe,
+    "--log_prefix", $LogPrefix,
     "--loop",
     "--interval_sec", $IntervalSec
 )
 
 if ($AllowFull) {
     $args += "--allow_full"
+}
+
+if ($QueueJson) {
+    $args += "--queue_json"
+    $args += (Resolve-Path $QueueJson).Path
 }
 
 $proc = Start-Process `

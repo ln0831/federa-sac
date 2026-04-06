@@ -8,8 +8,10 @@
 - [x] Run `main --dry_run --no_post` in the current workspace and record outputs.
 - [x] Add a local autopilot orchestration layer that can watch the live queue and launch the next suite safely.
 - [ ] Revalidate the existing `case141_fedgrid_main_rr` suite for path consistency and artifact completeness.
+- [x] Write an audit note comparing `case141_fedgrid_main_rr` and `case141_fedgrid_main_rr_20260402_clean`, including the `fedgrid_topo_proto` sign flip and the clean-rerun manifest caveat.
 - [x] Decide whether to continue or stop the live `case141_fedgrid_main_rr_20260326` duplicate rerun.
 - [x] Package the existing completed main suite into `docs/paper_package/`.
+- [ ] Refresh `docs/paper_package/` and `submission/manuscript.md` so they reflect the finished clean rerun and finished multi-seed ablation rather than the older partially negative-only story.
 
 ## Research
 
@@ -23,6 +25,9 @@
 - [x] Run custom multi-seed ablation with `fedgrid_v4_cluster_nodistill` and `fedgrid_v4_cluster_gentle` in `case141_fedgrid_ablation_custom_rr_20260327_ms3`.
 - [x] Run `robustness`.
 - [x] Decide that `full` is not auto-queued in this cycle and should remain opt-in unless robustness plus ablation leave a decisive evidence gap.
+- [ ] Run an independent fresh main replica under a new dated suite name to resolve the `case141_fedgrid_main_rr` versus `case141_fedgrid_main_rr_20260402_clean` discrepancy.
+- [ ] If the fresh main replica keeps `fedgrid_topo_proto` positive, run a higher-power `fedgrid_none` versus `fedgrid_topo_proto` follow-up with at least 5 seeds.
+- [ ] Upgrade robustness from a single-seed observation to a multi-seed supporting suite if the main replica still leaves the paper thesis open.
 
 ## Live Queue
 
@@ -45,8 +50,20 @@
 - [x] Write `paper/related_work.md` from verified citations.
 - [x] Tighten contributions to only what experiments support.
 - [x] Assemble `submission/manuscript.md`.
+- [ ] Rewrite the manuscript narrative around one of two routes after the fresh replica: empirical evaluation paper if signs remain unstable, or narrow `fedgrid_topo_proto` paper if the positive effect reproduces.
 
 ## Cleanup
 
 - [x] Add `outputs/suites/INDEX.md` for suite-level tracking.
 - [ ] Normalize remaining references to old workspace paths.
+- [x] Add `case141_fedgrid_main_rr_20260402_clean` to the active suite index with its reproducibility caveat.
+
+## Q1 Queue
+
+- [x] Create a dedicated Q1 queue file at `project/experiments/runs/q1_queue_20260407.json`.
+- [x] Add Q1 launcher and status scripts.
+- [x] Start the Q1 background autopilot.
+- [ ] Finish `case141_fedgrid_main_rr_20260407_replica`.
+- [ ] Finish `case141_fedgrid_topoproto_power_rr_20260407`.
+- [ ] Finish `case141_fedgrid_robust_rr_20260407_ms3`.
+- [ ] Refresh manuscript and paper package against the completed Q1 queue outputs.

@@ -1,0 +1,41 @@
+[
+  {
+    "suite_name": "case141_fedgrid_main_rr_20260407_replica",
+    "preset": "main",
+    "methods": "preset",
+    "seeds": [0, 1, 2],
+    "train_topology_mode": "random_reset",
+    "outage_k": 6,
+    "outage_policy": "local",
+    "outage_radius": 2,
+    "gpu": 0,
+    "epochs": 100,
+    "goal": "Run a fresh independent main replica to resolve the topo_proto sign discrepancy."
+  },
+  {
+    "suite_name": "case141_fedgrid_topoproto_power_rr_20260407",
+    "preset": "main",
+    "methods": "fedgrid_none,fedgrid_topo_proto",
+    "seeds": [0, 1, 2, 3, 4],
+    "train_topology_mode": "random_reset",
+    "outage_k": 6,
+    "outage_policy": "local",
+    "outage_radius": 2,
+    "gpu": 0,
+    "epochs": 100,
+    "goal": "Increase statistical power for the topo_proto versus baseline comparison."
+  },
+  {
+    "suite_name": "case141_fedgrid_robust_rr_20260407_ms3",
+    "preset": "robustness",
+    "methods": "preset",
+    "seeds": [0, 1, 2],
+    "train_topology_mode": "random_reset",
+    "outage_k": 6,
+    "outage_policy": "local",
+    "outage_radius": 2,
+    "gpu": 0,
+    "epochs": 100,
+    "goal": "Upgrade robustness evidence from single-seed to multi-seed support."
+  }
+]

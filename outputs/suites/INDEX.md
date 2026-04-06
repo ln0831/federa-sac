@@ -14,12 +14,75 @@ Status:
 
 Use level:
 
-- main evidence source for current tables, figures, and report
+- historical main evidence source that still matters because it carries the original negative result
 
 Notes:
 
 - contains complete manifests, eval outputs, aggregate CSVs, LaTeX tables, figures, and markdown report
 - current paired results do not support a strong positive method-superiority claim
+
+### `case141_fedgrid_main_rr_20260402_clean`
+
+Status:
+
+- completed and verified at the artifact level
+
+Use level:
+
+- current-workspace reproduction package
+
+Notes:
+
+- completed through explicit single-seed continuation launches into the same suite directory
+- aggregate CSVs, LaTeX tables, figures, and markdown report all reflect a 3-seed package
+- `fedgrid_topo_proto` is weakly positive on paired return in this rerun, while `fedgrid_v4_cluster_distill` remains negative
+- the suite manifest only records the last resumed seed, so the aggregate outputs should be treated as the source of truth for seed coverage
+
+### `case141_fedgrid_main_rr_20260407_replica`
+
+Status:
+
+- running
+
+Use level:
+
+- top-priority Q1 replica suite
+
+Notes:
+
+- intended to resolve the sign disagreement between `case141_fedgrid_main_rr` and `case141_fedgrid_main_rr_20260402_clean`
+- method set: `fedgrid_none`, `fedgrid_topo_proto`, `fedgrid_v4_cluster_distill`
+- tracked by the Q1 board at `outputs/automation_logs/fedgrid_q1_autopilot_status.md`
+
+### `case141_fedgrid_topoproto_power_rr_20260407`
+
+Status:
+
+- queued
+
+Use level:
+
+- planned high-power confirmation suite
+
+Notes:
+
+- will compare only `fedgrid_none` and `fedgrid_topo_proto`
+- target is a tighter confidence interval and a more stable win-count estimate
+
+### `case141_fedgrid_robust_rr_20260407_ms3`
+
+Status:
+
+- queued
+
+Use level:
+
+- planned supporting robustness upgrade
+
+Notes:
+
+- intended to convert the earlier robustness observations into multi-seed evidence
+- follows the main replica and topo-proto power run in the Q1 queue
 
 ### `case141_fedgrid_tune_seed2_rr_v1`
 

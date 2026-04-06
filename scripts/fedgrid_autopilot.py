@@ -206,6 +206,37 @@ $matches.Count
         return 0
 
 
+def load_queue_from_json(path: Path) -> List[SuiteSpec]:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        raise SystemExit(f"Queue file must contain a JSON list: {path}")
+    queue: List[SuiteSpec] = []
+    for index, item in enumerate(raw):
+        if not isinstance(item, dict):
+            raise SystemExit(f"Queue entry #{index} is not an object in {path}")
+        try:
+            queue.append(
+                SuiteSpec(
+                    suite_name=str(item["suite_name"]),
+                    preset=str(item.get("preset", "main")),
+                    methods=str(item.get("methods", "preset")),
+                    seeds=[int(seed) for seed in item.get("seeds", [0, 1, 2])],
+                    train_topology_mode=str(item.get("train_topology_mode", "random_reset")),
+                    outage_k=int(item.get("outage_k", 6)),
+                    outage_policy=str(item.get("outage_policy", "local")),
+                    outage_radius=int(item.get("outage_radius", 2)),
+                    gpu=int(item.get("gpu", 0)),
+                    epochs=int(item.get("epochs", 100)),
+                    goal=str(item.get("goal", "")),
+                )
+            )
+        except KeyError as exc:
+            raise SystemExit(f"Queue entry #{index} is missing required key {exc!s} in {path}") from exc
+    if not queue:
+        raise SystemExit(f"Queue file is empty: {path}")
+    return queue
+
+
 def ps_quote(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
 
@@ -322,18 +353,19 @@ def inspect_suite(root: Path, spec: SuiteSpec) -> Dict[str, object]:
 
 
 class Autopilot:
-    def __init__(self, root: Path, python_exe: str, interval_sec: int, allow_full: bool) -> None:
+    def __init__(self, root: Path, python_exe: str, interval_sec: int, allow_full: bool, queue: Optional[List[SuiteSpec]] = None, log_prefix: str = "fedgrid_autopilot") -> None:
         self.root = root
         self.python_exe = python_exe
         self.interval_sec = interval_sec
-        self.queue = list(DEFAULT_QUEUE)
-        if allow_full:
+        self.queue = list(queue) if queue is not None else list(DEFAULT_QUEUE)
+        if queue is None and allow_full:
             self.queue.append(OPTIONAL_FULL)
         self.log_dir = self.root / "outputs" / "automation_logs"
         ensure_dir(self.log_dir)
-        self.state_path = self.log_dir / "fedgrid_autopilot_state.json"
-        self.history_path = self.log_dir / "fedgrid_autopilot.log"
-        self.status_md_path = self.log_dir / "fedgrid_status.md"
+        self.log_prefix = log_prefix
+        self.state_path = self.log_dir / f"{self.log_prefix}_state.json"
+        self.history_path = self.log_dir / f"{self.log_prefix}.log"
+        self.status_md_path = self.log_dir / f"{self.log_prefix}_status.md"
 
     def log(self, message: str) -> None:
         line = f"[{timestamp()}] {message}"
@@ -578,6 +610,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--interval_sec", type=int, default=300)
     parser.add_argument("--max_cycles", type=int, default=0, help="0 means unbounded in loop mode.")
     parser.add_argument("--allow_full", action="store_true", help="Append the expensive full suite to the queue.")
+    parser.add_argument("--queue_json", type=Path, default=None, help="Optional JSON queue file overriding the default suite queue.")
+    parser.add_argument("--log_prefix", type=str, default="fedgrid_autopilot", help="Prefix for state, log, and status files under outputs/automation_logs.")
     parser.add_argument("--loop", action="store_true", help="Keep polling until the queue completes or max_cycles is reached.")
     parser.add_argument("--status_only", action="store_true", help="Refresh and print the human-readable status board without taking queue actions.")
     return parser.parse_args()
@@ -586,7 +620,15 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     root = args.project_root.resolve()
-    autopilot = Autopilot(root=root, python_exe=args.python_exe, interval_sec=args.interval_sec, allow_full=args.allow_full)
+    queue = load_queue_from_json(args.queue_json.resolve()) if args.queue_json else None
+    autopilot = Autopilot(
+        root=root,
+        python_exe=args.python_exe,
+        interval_sec=args.interval_sec,
+        allow_full=args.allow_full,
+        queue=queue,
+        log_prefix=args.log_prefix,
+    )
 
     if args.status_only:
         statuses = autopilot.inspect_all()

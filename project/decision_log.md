@@ -206,3 +206,36 @@ Reason:
 
 - `case141_fedgrid_ablation_custom_rr_20260327_ms3` had already finished train and eval, and manual postprocess recovery produced the full artifact set.
 - The old status logic still surfaced it as `running` because only the monitor process remained, which was misleading for operational tracking.
+
+## 2026-04-07: Treat the legacy-main versus clean-rerun sign flip as the top blocker
+
+Decision:
+
+- Do not freeze the paper thesis until a fresh independent main replica resolves the disagreement between `case141_fedgrid_main_rr` and `case141_fedgrid_main_rr_20260402_clean`.
+
+Reason:
+
+- The older main suite shows `fedgrid_topo_proto` negative on paired return, while the clean rerun shows it weakly positive.
+- A Q1 paper cannot rely on a headline result whose sign changes across the two strongest available main-benchmark packages.
+
+## 2026-04-07: Narrow any method-positive paper around `fedgrid_topo_proto`, not clustered distillation
+
+Decision:
+
+- If the next fresh replica remains positive, the method-positive route should focus on `fedgrid_topo_proto` and explicitly present clustered distillation as negative or unstable.
+
+Reason:
+
+- The clean rerun and the finished multi-seed ablation both support `fedgrid_topo_proto` more than the clustered-distillation family.
+- `fedgrid_v4_cluster_distill`, `fedgrid_v4_cluster_nodistill`, and `fedgrid_v4_cluster_gentle` do not currently justify a positive headline.
+
+## 2026-04-07: Launch a dedicated Q1 experiment queue instead of waiting for manual follow-up
+
+Decision:
+
+- Start a dedicated Q1 background queue with three suites: `case141_fedgrid_main_rr_20260407_replica`, `case141_fedgrid_topoproto_power_rr_20260407`, and `case141_fedgrid_robust_rr_20260407_ms3`.
+
+Reason:
+
+- The user asked for continuous autonomous execution rather than another manual stop-and-plan cycle.
+- This queue resolves the highest-value uncertainty first, then increases statistical power, then upgrades supporting robustness evidence.
