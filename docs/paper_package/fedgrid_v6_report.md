@@ -1,6 +1,6 @@
 # FedGrid v6 suite report
 
-- Suite root: `C:\Users\ASUS\Desktop\fuxian\fedgrid_runtime_bundle_v1\runtime_bundle\outputs\suites\case141_fedgrid_main_rr`
+- Suite root: `C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\case141_fedgrid_main_rr_20260402_clean`
 - Paired metrics source: `suite_paired_metrics.csv`
 - Absolute metrics source: `suite_absolute_metrics.csv`
 - Ranking source: `suite_rankings.csv`
@@ -9,8 +9,8 @@
 
 ### Context: case=141, k=6, policy=, radius=
 
-- Main benchmark best paired return on `random_reset`: **fedgrid_topo_proto** with paired Δreturn=-0.106 and 95% CI [-0.267, 0.012] with trade-off in power loss.
-- In-distribution best paired return on `static`: **fedgrid_topo_proto** with paired Δreturn=-0.106 with trade-off in power loss.
+- Main benchmark best paired return on `random_reset`: **fedgrid_topo_proto** with paired Δreturn=0.122 and 95% CI [-0.016, 0.208].
+- In-distribution best paired return on `static`: **fedgrid_topo_proto** with paired Δreturn=0.122.
 - Best method on `random_reset` by voltage-violation reduction: **fedgrid_topo_proto** with Δvviol=0.0000.
 - Top-3 methods on `random_reset` by paired return gain in this context: 1) fedgrid_topo_proto, 2) fedgrid_v4_cluster_distill.
 
@@ -25,15 +25,15 @@
 
 | case | k | policy | radius | method | Δreturn | 95% CI | Δvviol | Δploss | better seeds | paper score |
 |---|---:|---|---:|---|---:|---|---:|---:|---:|---:|
-| 141 | 6 |  |  | fedgrid_topo_proto | -0.106 | [-0.267, 0.012] | 0.0000 | 0.00277 | 1/3 | -2.270 |
-| 141 | 6 |  |  | fedgrid_v4_cluster_distill | -0.173 | [-0.357, 0.045] | 0.0000 | 0.00451 | 1/3 | -3.674 |
+| 141 | 6 |  |  | fedgrid_topo_proto | 0.122 | [-0.016, 0.208] | 0.0000 | -0.00317 | 2/3 | 2.499 |
+| 141 | 6 |  |  | fedgrid_v4_cluster_distill | -0.055 | [-0.136, 0.075] | 0.0000 | 0.00142 | 1/3 | -1.137 |
 
 ## Static paired table
 
 | case | k | policy | radius | method | Δreturn | 95% CI | Δvviol | Δploss | better seeds | paper score |
 |---|---:|---|---:|---|---:|---|---:|---:|---:|---:|
-| 141 | 6 |  |  | fedgrid_topo_proto | -0.106 | [-0.269, 0.016] | 0.0000 | 0.00276 | 1/3 | -2.276 |
-| 141 | 6 |  |  | fedgrid_v4_cluster_distill | -0.173 | [-0.359, 0.047] | 0.0000 | 0.00451 | 1/3 | -3.698 |
+| 141 | 6 |  |  | fedgrid_topo_proto | 0.122 | [-0.013, 0.208] | 0.0000 | -0.00319 | 2/3 | 2.531 |
+| 141 | 6 |  |  | fedgrid_v4_cluster_distill | -0.051 | [-0.135, 0.081] | 0.0000 | 0.00133 | 1/3 | -1.074 |
 
 ## Suggested results narrative
 

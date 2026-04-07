@@ -14,8 +14,21 @@ D:\Anaconda\envs\tianshou_env\python.exe run_case141_fedgrid_v6.py --project_roo
 
 ## Current Packaging Decision
 
-- The existing completed suite `case141_fedgrid_main_rr` is used as the main evidence package.
-- The fresh rerun `case141_fedgrid_main_rr_20260326` was used to validate the current environment and manifests, then stopped to avoid wasting many hours on a CPU-only duplicate of an already completed main suite.
+- The historical suite `case141_fedgrid_main_rr` is retained because it carries the original negative main-benchmark result.
+- The clean rerun `case141_fedgrid_main_rr_20260402_clean` is the current working-draft main package.
+- The corrected multi-seed ablation `case141_fedgrid_ablation_custom_rr_20260327_ms3` is the current working-draft ablation package.
+
+## Current Q1 Queue
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\runtime_bundle\scripts\launch_fedgrid_q1_autopilot.ps1" -RootDir "C:\Users\ASUS\Desktop\runtime_bundle" -PythonExe "D:\Anaconda\envs\tianshou_env\python.exe"
+```
+
+## Q1 Status Command
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\runtime_bundle\scripts\show_fedgrid_q1_status.ps1" -RootDir "C:\Users\ASUS\Desktop\runtime_bundle" -PythonExe "D:\Anaconda\envs\tianshou_env\python.exe"
+```
 
 ## Future Full Rerun Command
 

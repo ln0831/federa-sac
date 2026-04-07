@@ -1,16 +1,47 @@
 {
   "action": "status_only",
-  "current_suite": "case141_fedgrid_main_rr_20260407_replica",
+  "current_suite": "case141_fedgrid_topoproto_power_rr_20260407",
   "statuses": [
     {
       "suite_name": "case141_fedgrid_main_rr_20260407_replica",
       "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_main_rr_20260407_replica",
+      "phase": "complete",
+      "running": false,
+      "process_count": 1,
+      "recent_stdout": false,
+      "recent_stderr": false,
+      "expected_runs": 9,
+      "checkpoints": 10,
+      "eval_files": 30,
+      "agg_files": 10,
+      "report_files": 8,
+      "required_outputs": {
+        "manifests/fedgrid_v6_run_matrix.csv": true,
+        "manifests/fedgrid_v6_commands.csv": true,
+        "manifests/fedgrid_v6_suite_manifest.json": true,
+        "agg/suite_absolute_metrics.csv": true,
+        "agg/suite_paired_metrics.csv": true,
+        "agg/suite_rankings.csv": true,
+        "reports/fedgrid_v6_report.md": true,
+        "reports/latex/table_main_random_reset.tex": true,
+        "reports/latex/table_appendix_static.tex": true,
+        "reports/figures/random_reset_delta_return.png": true,
+        "reports/figures/random_reset_delta_vviol.png": true,
+        "reports/figures/random_reset_delta_ploss.png": true
+      },
+      "monitor": null,
+      "goal": "Run a fresh independent main replica to resolve the topo_proto sign discrepancy.",
+      "latest_log_run": "GNN-FMASAC_case141_fedgrid_v4_cluster_distill_seed2_20260407-102830"
+    },
+    {
+      "suite_name": "case141_fedgrid_topoproto_power_rr_20260407",
+      "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_topoproto_power_rr_20260407",
       "phase": "running",
       "running": true,
       "process_count": 2,
       "recent_stdout": true,
-      "recent_stderr": true,
-      "expected_runs": 9,
+      "recent_stderr": false,
+      "expected_runs": 10,
       "checkpoints": 2,
       "eval_files": 0,
       "agg_files": 0,
@@ -30,39 +61,8 @@
         "reports/figures/random_reset_delta_ploss.png": false
       },
       "monitor": null,
-      "goal": "Run a fresh independent main replica to resolve the topo_proto sign discrepancy.",
-      "latest_log_run": "GNN-FMASAC_case141_fedgrid_none_seed0_20260407-033923"
-    },
-    {
-      "suite_name": "case141_fedgrid_topoproto_power_rr_20260407",
-      "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_topoproto_power_rr_20260407",
-      "phase": "missing",
-      "running": false,
-      "process_count": 0,
-      "recent_stdout": false,
-      "recent_stderr": false,
-      "expected_runs": 10,
-      "checkpoints": 0,
-      "eval_files": 0,
-      "agg_files": 0,
-      "report_files": 0,
-      "required_outputs": {
-        "manifests/fedgrid_v6_run_matrix.csv": false,
-        "manifests/fedgrid_v6_commands.csv": false,
-        "manifests/fedgrid_v6_suite_manifest.json": false,
-        "agg/suite_absolute_metrics.csv": false,
-        "agg/suite_paired_metrics.csv": false,
-        "agg/suite_rankings.csv": false,
-        "reports/fedgrid_v6_report.md": false,
-        "reports/latex/table_main_random_reset.tex": false,
-        "reports/latex/table_appendix_static.tex": false,
-        "reports/figures/random_reset_delta_return.png": false,
-        "reports/figures/random_reset_delta_vviol.png": false,
-        "reports/figures/random_reset_delta_ploss.png": false
-      },
-      "monitor": null,
       "goal": "Increase statistical power for the topo_proto versus baseline comparison.",
-      "latest_log_run": null
+      "latest_log_run": "GNN-FMASAC_case141_fedgrid_none_seed0_20260407-120107"
     },
     {
       "suite_name": "case141_fedgrid_robust_rr_20260407_ms3",
@@ -96,5 +96,5 @@
       "latest_log_run": null
     }
   ],
-  "timestamp": "2026-04-07 03:40:59"
+  "timestamp": "2026-04-07 12:42:24"
 }

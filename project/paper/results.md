@@ -2,20 +2,34 @@
 
 Status:
 - drafted from completed suites only
-- the live multi-seed ablation is intentionally excluded until it finishes cleanly
+- includes the corrected multi-seed ablation and the clean current-workspace main rerun
 
-## Main three-seed benchmark
+## Historical main versus clean rerun
 
-The primary completed evidence package is `outputs/suites/case141_fedgrid_main_rr`. On the main `random_reset` benchmark, the paired-seed table does not support a strong positive result for the current headline methods.
+The historical main suite and the clean rerun disagree in a way that is scientifically important.
 
-- `fedgrid_topo_proto`: DeltaReturn `-0.106`, 95 percent CI `[-0.267, 0.012]`, DeltaVViol `0.0000`, DeltaPLoss `0.00277`, better seeds `1/3`
-- `fedgrid_v4_cluster_distill`: DeltaReturn `-0.173`, 95 percent CI `[-0.357, 0.045]`, DeltaVViol `0.0000`, DeltaPLoss `0.00451`, better seeds `1/3`
+From `outputs/suites/case141_fedgrid_main_rr` on `random_reset`:
 
-The `static` context shows the same qualitative picture, with DeltaReturn remaining negative for both methods. This matters because it means the evidence gap is not just a random-reset artifact. Under the current evaluation protocol, the safest interpretation is that the completed main benchmark does not justify a claim that the clustered or prototype-aware variants clearly outperform the baseline.
+- `fedgrid_topo_proto`: DeltaReturn `-0.106`, 95 percent CI `[-0.267, 0.012]`, DeltaPLoss `0.00277`, better seeds `1/3`
+- `fedgrid_v4_cluster_distill`: DeltaReturn `-0.173`, 95 percent CI `[-0.357, 0.045]`, DeltaPLoss `0.00451`, better seeds `1/3`
 
-## Seed-level consistency
+From `outputs/suites/case141_fedgrid_main_rr_20260402_clean` on `random_reset`:
 
-The seed-level paired table reinforces that conclusion. For `fedgrid_topo_proto`, only seed 1 is positive on `random_reset`, while seeds 0 and 2 are negative. The same pattern appears for `fedgrid_v4_cluster_distill`: one positive seed and two negative seeds. This weak win-count pattern is why the paper treats the current main result as negative or at best ambiguous.
+- `fedgrid_topo_proto`: DeltaReturn `+0.122`, 95 percent CI `[-0.016, 0.208]`, DeltaPLoss `-0.00317`, better seeds `2/3`
+- `fedgrid_v4_cluster_distill`: DeltaReturn `-0.055`, 95 percent CI `[-0.136, 0.075]`, DeltaPLoss `0.00142`, better seeds `1/3`
+
+The clean rerun therefore weakly upgrades `fedgrid_topo_proto` while leaving `fedgrid_v4_cluster_distill` negative. The historical suite still matters because it prevents an overconfident superiority claim.
+
+## Corrected multi-seed ablation
+
+The corrected three-seed ablation, `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327_ms3`, sharpens the mechanism story.
+
+- `fedgrid_topo_proto`: DeltaReturn `+0.091`, better seeds `3/3`
+- `fedgrid_v4_cluster_distill`: DeltaReturn `-0.136`, better seeds `1/3`
+- `fedgrid_v4_cluster_nodistill`: DeltaReturn `-0.133`, better seeds `0/3`
+- `fedgrid_v4_cluster_gentle`: DeltaReturn `-0.085`, better seeds `0/3`
+
+This is the strongest current evidence that prototype-sharing is the only promising direction in the current family, while the broader clustered-distillation variants remain unsupported.
 
 ## Supporting robustness evidence
 
@@ -29,4 +43,4 @@ These results show that the method family is not uniformly weak. Under some stre
 
 ## What can be claimed today
 
-The strongest current claim is empirical: stricter paired evaluation changes the paper story. A superficial reading of isolated positive stress-test results could suggest that the method family is broadly successful. The completed multi-seed main suite shows that such a conclusion would be premature. The paper should therefore emphasize evaluation discipline, context sensitivity, and the need to separate exploratory evidence from headline evidence.
+The strongest current claim is empirical: stricter paired evaluation and fresh reruns change the paper story. A superficial reading of isolated positive stress-test results could suggest that the method family is broadly successful. The corrected multi-seed ablation shows that this is false for the clustered-distillation family, while the clean rerun shows that `fedgrid_topo_proto` is promising but not yet fully settled. The paper should therefore emphasize evaluation discipline, context sensitivity, and the need to separate promising subcomponents from unsupported family-wide claims.

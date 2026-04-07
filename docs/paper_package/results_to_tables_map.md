@@ -4,17 +4,21 @@
 
 Source:
 
-- `outputs/suites/case141_fedgrid_main_rr/reports/latex/table_main_random_reset.tex`
+- `outputs/suites/case141_fedgrid_main_rr_20260402_clean/reports/latex/table_main_random_reset.tex`
 
 Paper use:
 
-- main benchmark table
+- current main benchmark table for the working draft
+
+Note:
+
+- the historical suite `outputs/suites/case141_fedgrid_main_rr` should still be cited in the discussion or appendix because it disagrees on the sign of `fedgrid_topo_proto`
 
 ## Appendix Static Table
 
 Source:
 
-- `outputs/suites/case141_fedgrid_main_rr/reports/latex/table_appendix_static.tex`
+- `outputs/suites/case141_fedgrid_main_rr_20260402_clean/reports/latex/table_appendix_static.tex`
 
 Paper use:
 
@@ -24,33 +28,43 @@ Paper use:
 
 Source:
 
-- `outputs/suites/case141_fedgrid_main_rr/reports/latex/table_ablation_random_reset.tex`
+- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327_ms3/reports/latex/table_ablation_random_reset.tex`
 
 Paper use:
 
-- provisional ablation summary only
+- mechanism section or ablation section
 
 Note:
 
-- current dedicated ablation evidence is not yet strong enough to treat this as a final mechanistic ablation section
+- this is now the final corrected multi-seed ablation source for the current cycle
 
 ## Primary Figures
 
 Sources:
 
-- `outputs/suites/case141_fedgrid_main_rr/reports/figures/random_reset_delta_return.png`
-- `outputs/suites/case141_fedgrid_main_rr/reports/figures/random_reset_delta_vviol.png`
-- `outputs/suites/case141_fedgrid_main_rr/reports/figures/random_reset_delta_ploss.png`
+- `outputs/suites/case141_fedgrid_main_rr_20260402_clean/reports/figures/random_reset_delta_return.png`
+- `outputs/suites/case141_fedgrid_main_rr_20260402_clean/reports/figures/random_reset_delta_vviol.png`
+- `outputs/suites/case141_fedgrid_main_rr_20260402_clean/reports/figures/random_reset_delta_ploss.png`
 
 Paper use:
 
-- main random-reset figure set
+- current random-reset figure set for the working draft
+
+## Reconciliation Note
+
+Source:
+
+- `project/analysis/main_suite_reconciliation_20260407.md`
+
+Paper use:
+
+- discussion appendix, reviewer note, or internal source-of-truth memo while the fresh replica is running
 
 ## Supporting Report
 
 Source:
 
-- `outputs/suites/case141_fedgrid_main_rr/reports/fedgrid_v6_report.md`
+- `outputs/suites/case141_fedgrid_main_rr_20260402_clean/reports/fedgrid_v6_report.md`
 
 Paper use:
 

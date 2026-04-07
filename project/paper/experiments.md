@@ -1,7 +1,7 @@
 # Experiments Draft
 
 Status:
-- drafted from the completed main and robustness suites plus the current live ablation plan
+- drafted from the historical main suite, clean main rerun, corrected ablation suite, and robustness suite
 
 ## Environment and benchmark
 
@@ -12,11 +12,12 @@ All current validated runs use `D:\Anaconda\envs\tianshou_env\python.exe`. Full 
 
 ## Suites used in the manuscript
 
-The current manuscript uses two completed suites and one live suite status note:
+The current manuscript uses four completed suites:
 
-- `outputs/suites/case141_fedgrid_main_rr` as the primary multi-seed evidence package
+- `outputs/suites/case141_fedgrid_main_rr` as the historical main benchmark package
+- `outputs/suites/case141_fedgrid_main_rr_20260402_clean` as the clean current-workspace rerun
+- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327_ms3` as the corrected final multi-seed ablation package
 - `outputs/suites/case141_fedgrid_robust_rr_20260326` as supporting robustness evidence
-- `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327` as the current live multi-seed ablation, not yet used for headline claims
 
 The partial rerun `case141_fedgrid_main_rr_20260326` is kept only as environment-validation evidence.
 
@@ -33,7 +34,7 @@ The completed robustness suite adds:
 - `fedgrid_v4_cluster_dropout`
 - `fedgrid_v4_cluster_byzantine`
 
-The live ablation suite is designed to test:
+The corrected multi-seed ablation suite adds:
 
 - `fedgrid_v4_cluster_nodistill`
 - `fedgrid_v4_cluster_gentle`
@@ -56,3 +57,13 @@ The current cycle follows four fairness rules:
 2. `random_reset` outranks `static` for headline claims because it is the topology-shift target
 3. incomplete suites are not cited as evidence
 4. exploratory single-seed runs such as `case141_fedgrid_tune_seed2_rr_v1` can inform discussion, but not headline claims
+
+## Current Q1 follow-up
+
+The next live queue is now a dedicated Q1 sequence:
+
+- `case141_fedgrid_main_rr_20260407_replica`
+- `case141_fedgrid_topoproto_power_rr_20260407`
+- `case141_fedgrid_robust_rr_20260407_ms3`
+
+These runs are not yet used in the manuscript, but they are the active path for resolving whether the final paper remains empirical-first or upgrades to a narrow `fedgrid_topo_proto` method paper.
