@@ -15,11 +15,11 @@ This directory collects the current best paper-facing assets from the completed 
 This package is suitable for:
 
 - writing a cautious empirical or evaluation-protocol paper
-- drafting a narrower `fedgrid_topo_proto` story only if a fresh replica confirms the clean rerun
+- drafting a narrower `fedgrid_topo_proto` story only if the already-running higher-power follow-up overturns the current mixed-sign main-benchmark picture
 - assembling a reproducibility bundle
 - drafting the manuscript with honest claims
 
 This package is not yet suitable for:
 
 - claiming strong positive superiority of the clustered method over baseline
-- claiming that `fedgrid_topo_proto` is already definitively solved without the fresh replica
+- claiming that `fedgrid_topo_proto` is already definitively solved without the higher-power confirmation suite

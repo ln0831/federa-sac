@@ -2,13 +2,14 @@
 
 ## Purpose
 
-This note reconciles the three most important evidence packages for the current paper cycle:
+This note reconciles the four most important evidence packages for the current paper cycle:
 
 - `outputs/suites/case141_fedgrid_main_rr`
 - `outputs/suites/case141_fedgrid_main_rr_20260402_clean`
+- `outputs/suites/case141_fedgrid_main_rr_20260407_replica`
 - `outputs/suites/case141_fedgrid_ablation_custom_rr_20260327_ms3`
 
-The goal is to explain what is already stable, what is still unstable, and what the next experiment must resolve before the paper thesis is frozen.
+The goal is to explain what is already stable, what is still unstable, and what the remaining queued experiments should resolve before the paper thesis is frozen.
 
 ## Shared Context
 
@@ -52,6 +53,23 @@ Interpretation:
 - `fedgrid_v4_cluster_distill` remains negative
 - the sign of the main positive candidate changed relative to the historical main suite
 
+## Fresh Independent Main Replica
+
+Source:
+
+- `outputs/suites/case141_fedgrid_main_rr_20260407_replica/agg/suite_paired_metrics.csv`
+
+Key paired results:
+
+- `fedgrid_topo_proto`: `Δreturn = -0.019` on `random_reset`, `2/3` winning seeds, 95 percent CI `[-0.159, 0.094]`
+- `fedgrid_v4_cluster_distill`: `Δreturn = -0.187` on `random_reset`, `0/3` winning seeds
+
+Interpretation:
+
+- the clean rerun's weakly positive `fedgrid_topo_proto` result did not repeat in an independent dated replica
+- `fedgrid_topo_proto` is now better described as mixed-sign or near-zero on the main benchmark than as clearly positive
+- `fedgrid_v4_cluster_distill` becomes even more clearly negative
+
 ## Corrected Multi-Seed Ablation
 
 Source:
@@ -74,7 +92,7 @@ Interpretation:
 
 What matches:
 
-- the historical main suite and the clean rerun use the same main method set
+- the historical main suite, the clean rerun, and the fresh replica use the same main method set
 - both compare against `fedgrid_none`
 - both evaluate the same case and benchmark contexts
 
@@ -90,38 +108,43 @@ These statements are already safe:
 
 - `fedgrid_v4_cluster_distill` is not supported as a positive headline method by the strongest current evidence
 - the broader clustered-distillation family is not winning in the corrected multi-seed ablation
+- `fedgrid_topo_proto` is not stable enough yet for a positive main-benchmark headline because the historical main suite is negative, the clean rerun is weakly positive, and the fresh replica is slightly negative
 - the paper should not claim a broad clustered-method superiority result
 
-## Unstable Conclusion
+## Remaining Uncertainty
 
-This statement is not yet stable enough:
+This question is not yet stable enough:
 
-- `fedgrid_topo_proto` clearly beats baseline on the main benchmark
+- whether the already-running higher-power `fedgrid_none` versus `fedgrid_topo_proto` suite will tighten around a real positive effect or simply confirm that the main-benchmark result is near zero and unstable
 
 Reason:
 
 - the historical main suite is negative
 - the clean rerun is weakly positive
-- the ablation is positive, but it is still not the same evidence role as an independent fresh main replica
+- the fresh replica is slightly negative
+- the ablation is positive, but it is still not the same evidence role as a dedicated higher-power confirmation run
 
-## Required Next Experiment
+## Required Next Evidence
 
-Run:
+Finish:
 
-- a brand-new independent main replica under a new suite name
+- the already-running `case141_fedgrid_topoproto_power_rr_20260407` suite
+- the queued `case141_fedgrid_robust_rr_20260407_ms3` suite
 
 Why:
 
-- this is the cheapest experiment that directly resolves the sign disagreement
-- until this is done, the paper should remain empirical-first
+- the fresh replica has already resolved the original sign disagreement enough to keep the default paper route empirical-first
+- the higher-power topo-proto suite is now the right place to quantify whether the narrower comparison is genuinely positive
+- the multi-seed robustness upgrade is the right supporting package for the discussion and limitations sections
 
 ## Paper Impact
 
-If the next replica is positive again:
+Primary route today:
 
-- move toward a narrow method story centered on `fedgrid_topo_proto`
-- keep clustered distillation as a negative or unstable comparison
+- stay with an empirical evaluation and failure-analysis paper
+- present clustered distillation as negative or unstable
+- present `fedgrid_topo_proto` as mixed-sign evidence that is promising enough to study further but not yet strong enough for a broad superiority claim
 
-If the next replica is negative or near zero:
+If the higher-power topo-proto suite becomes clearly positive with tighter uncertainty:
 
-- freeze the paper as a Q1-oriented empirical evaluation and failure-analysis paper
+- a narrow `fedgrid_topo_proto` method story can be reconsidered, but it should still preserve the negative clustered-distillation result rather than hide it

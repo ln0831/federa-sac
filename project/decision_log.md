@@ -218,6 +218,30 @@ Reason:
 - The older main suite shows `fedgrid_topo_proto` negative on paired return, while the clean rerun shows it weakly positive.
 - A Q1 paper cannot rely on a headline result whose sign changes across the two strongest available main-benchmark packages.
 
+## 2026-04-07: Keep the primary paper route empirical-first after the fresh independent main replica
+
+Decision:
+
+- Do not upgrade the project to a method-positive paper route yet, even though the clean rerun was weakly positive for `fedgrid_topo_proto`.
+
+Reason:
+
+- The fresh independent main replica `case141_fedgrid_main_rr_20260407_replica` did not confirm the clean rerun's weakly positive sign.
+- `fedgrid_topo_proto` is now mixed-sign across the three main evidence packages, while `fedgrid_v4_cluster_distill` is clearly unsupported.
+- The strongest defensible paper route remains empirical evaluation, reproducibility, and failure analysis unless the higher-power topo-proto follow-up is much cleaner.
+
+## 2026-04-08: Resume the Q1 queue from the stalled topo-proto power suite instead of skipping ahead
+
+Decision:
+
+- Keep `case141_fedgrid_topoproto_power_rr_20260407` as the current live suite, relaunch the Q1 autopilot, and let the queue continue in order into `case141_fedgrid_robust_rr_20260407_ms3`.
+
+Reason:
+
+- The queue had stalled in a `resume_needed` state after a failed resumed run, but the suite still had valid partial checkpoints and `--skip_existing` was working correctly.
+- Skipping directly to robustness would leave the main `fedgrid_none` versus `fedgrid_topo_proto` question unresolved.
+- Relaunching the Q1 autopilot preserved the intended paper logic: first tighten the mixed-sign topo-proto result, then upgrade robustness from single-seed to multi-seed support.
+
 ## 2026-04-07: Narrow any method-positive paper around `fedgrid_topo_proto`, not clustered distillation
 
 Decision:
@@ -239,3 +263,15 @@ Reason:
 
 - The user asked for continuous autonomous execution rather than another manual stop-and-plan cycle.
 - This queue resolves the highest-value uncertainty first, then increases statistical power, then upgrades supporting robustness evidence.
+
+## 2026-04-07: Keep the primary paper route empirical-first after the fresh main replica
+
+Decision:
+
+- Treat `case141_fedgrid_main_rr_20260407_replica` as the freshest independent main evidence and keep the default paper route empirical-first.
+
+Reason:
+
+- In the fresh replica, `fedgrid_topo_proto` is slightly negative on mean paired return on both `random_reset` and `static`, even though it still wins `2/3` seeds.
+- `fedgrid_v4_cluster_distill` is clearly negative in the same replica and goes `0/3` on paired return wins.
+- This is enough to reject a stable positive main-benchmark headline for now, even though the narrower topo-proto follow-up is still worth finishing.

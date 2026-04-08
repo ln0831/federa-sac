@@ -8,6 +8,7 @@ Produce a Q1-ready evidence package for case141 without overstating what the cur
 
 - `case141_fedgrid_main_rr` is the historical main suite and shows `fedgrid_topo_proto` negative on paired return.
 - `case141_fedgrid_main_rr_20260402_clean` is the clean current-workspace rerun and shows `fedgrid_topo_proto` weakly positive on paired return, with `fedgrid_v4_cluster_distill` still negative.
+- `case141_fedgrid_main_rr_20260407_replica` is the freshest independent main replica and pulls `fedgrid_topo_proto` back to slightly negative paired return, while `fedgrid_v4_cluster_distill` is clearly negative.
 - `case141_fedgrid_ablation_custom_rr_20260327_ms3` strengthens the view that `fedgrid_topo_proto` is the only positive ablation result, while `distill`, `nodistill`, and `gentle` are all negative.
 - `case141_fedgrid_robust_rr_20260326` is useful but only single-seed, so it cannot carry a Q1 headline on its own.
 
@@ -19,7 +20,7 @@ Route A:
 
 Route B:
 
-- narrow method paper if a fresh replica and a higher-power follow-up both keep `fedgrid_topo_proto` positive on the `random_reset` benchmark
+- narrow method paper only if the higher-power follow-up overturns the current mixed-sign picture and shows a clearly positive `fedgrid_topo_proto` result on the `random_reset` benchmark
 
 What is currently ruled out:
 
@@ -69,9 +70,14 @@ Decision impact:
 - if `fedgrid_topo_proto` turns positive again, the project can move toward a narrower method story
 - if it flips back negative or near-zero, the Q1 route should stay empirical-first
 
-### Priority 3: Higher-power topo-proto confirmation
+Observed outcome:
 
-Run only if Priority 2 is positive.
+- completed
+- `fedgrid_topo_proto` came back slightly negative on `random_reset` (`-0.019`) and `static` (`-0.021`) despite winning `2/3` seeds
+- `fedgrid_v4_cluster_distill` remained clearly negative on both contexts
+- the default paper route should therefore remain empirical-first unless the higher-power follow-up is much cleaner
+
+### Priority 3: Higher-power topo-proto confirmation
 
 Recommended suite:
 
@@ -88,7 +94,7 @@ Seeds:
 
 Goal:
 
-- tighten the confidence interval on `random_reset` paired return and determine whether the effect is stable enough for a method-positive paper
+- tighten the confidence interval on `random_reset` paired return and determine whether the effect is truly positive or simply near zero and unstable
 
 Success threshold:
 
@@ -96,9 +102,14 @@ Success threshold:
 - win count is comfortably above half the seeds
 - trade-offs in `p_loss_mean` do not reverse the story
 
+Current status:
+
+- running in the Q1 queue
+- this suite is now a closure experiment for the mixed-sign main-benchmark story, not just a confirmation of a positive rerun
+
 ### Priority 4: Multi-seed robustness upgrade
 
-Run if compute allows after Priority 2, or earlier if the main replica is still ambiguous but the paper needs richer supporting evidence.
+Run after the higher-power topo-proto suite so the discussion section is supported by more than the older single-seed robustness package.
 
 Recommended suite:
 
@@ -149,3 +160,4 @@ Reason to defer:
 - no headline claim depends on single-seed evidence
 - robustness evidence is either upgraded to multi-seed or kept explicitly secondary
 - manuscript and paper package both point to the same current source-of-truth suites
+- any remaining method-positive claim for `fedgrid_topo_proto` is backed by the higher-power suite rather than by the clean rerun alone

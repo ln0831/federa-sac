@@ -42,23 +42,25 @@ Notes:
 
 Status:
 
-- running
+- completed and verified
 
 Use level:
 
-- top-priority Q1 replica suite
+- freshest independent main evidence package
 
 Notes:
 
 - intended to resolve the sign disagreement between `case141_fedgrid_main_rr` and `case141_fedgrid_main_rr_20260402_clean`
 - method set: `fedgrid_none`, `fedgrid_topo_proto`, `fedgrid_v4_cluster_distill`
+- `fedgrid_topo_proto` is slightly negative on paired return on both `random_reset` and `static` (`-0.019` and `-0.021`) despite winning `2/3` seeds
+- `fedgrid_v4_cluster_distill` is strongly negative on paired return on both `random_reset` and `static` (`-0.187` and `-0.188`) with `0/3` winning seeds
 - tracked by the Q1 board at `outputs/automation_logs/fedgrid_q1_autopilot_status.md`
 
 ### `case141_fedgrid_topoproto_power_rr_20260407`
 
 Status:
 
-- queued
+- running
 
 Use level:
 
@@ -66,8 +68,9 @@ Use level:
 
 Notes:
 
-- will compare only `fedgrid_none` and `fedgrid_topo_proto`
-- target is a tighter confidence interval and a more stable win-count estimate
+- compares only `fedgrid_none` and `fedgrid_topo_proto`
+- exists because the fresh main replica did not confirm a stable positive sign for `fedgrid_topo_proto`
+- target is a tighter confidence interval and a more stable win-count estimate for the narrower method question
 
 ### `case141_fedgrid_robust_rr_20260407_ms3`
 

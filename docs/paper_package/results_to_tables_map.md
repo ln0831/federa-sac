@@ -12,7 +12,7 @@ Paper use:
 
 Note:
 
-- the historical suite `outputs/suites/case141_fedgrid_main_rr` should still be cited in the discussion or appendix because it disagrees on the sign of `fedgrid_topo_proto`
+- the historical suite `outputs/suites/case141_fedgrid_main_rr` and the fresh replica `outputs/suites/case141_fedgrid_main_rr_20260407_replica` should still be cited in the discussion or appendix because the main-benchmark sign for `fedgrid_topo_proto` is still mixed
 
 ## Appendix Static Table
 
@@ -50,6 +50,10 @@ Paper use:
 
 - current random-reset figure set for the working draft
 
+Note:
+
+- these are still copied from the clean rerun for drafting convenience, but the fresh replica must be discussed alongside them because it did not confirm the weakly positive sign
+
 ## Reconciliation Note
 
 Source:
@@ -58,13 +62,14 @@ Source:
 
 Paper use:
 
-- discussion appendix, reviewer note, or internal source-of-truth memo while the fresh replica is running
+- discussion appendix, reviewer note, or internal source-of-truth memo while the higher-power topo-proto suite is still running
 
 ## Supporting Report
 
 Source:
 
 - `outputs/suites/case141_fedgrid_main_rr_20260402_clean/reports/fedgrid_v6_report.md`
+- `outputs/suites/case141_fedgrid_main_rr_20260407_replica/reports/fedgrid_v6_report.md`
 
 Paper use:
 

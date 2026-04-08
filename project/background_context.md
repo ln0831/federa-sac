@@ -31,6 +31,8 @@ Current active execution chain:
 - `make_fedgrid_report_v6.py`
 - `scripts/fedgrid_autopilot.py`
 - `scripts/launch_fedgrid_autopilot.ps1`
+- `scripts/launch_fedgrid_q1_autopilot.ps1`
+- `scripts/show_fedgrid_q1_status.ps1`
 
 Current active rules and docs:
 
@@ -43,6 +45,8 @@ Current active rules and docs:
 - `C:\Users\ASUS\Downloads\SKILL.md` for `paper-project-autopilot`
 - `outputs/automation_logs/fedgrid_status.md` for the current human-readable task board
 - `scripts/show_fedgrid_status.ps1` for one-shot status refresh on demand
+- `outputs/automation_logs/fedgrid_q1_autopilot_status.md` for the Q1 queue status board
+- `project/analysis/main_suite_reconciliation_20260407.md` for the current source-of-truth reconciliation note
 
 ## Environment Facts
 
@@ -69,6 +73,9 @@ Important existing suites:
 
 - `outputs/suites/case141_fedgrid_main_rr`
 - `outputs/suites/case141_fedgrid_main_rr_20260402_clean` as the clean current-workspace rerun
+- `outputs/suites/case141_fedgrid_main_rr_20260407_replica` as the fresh independent main replica
+- `outputs/suites/case141_fedgrid_topoproto_power_rr_20260407` as the running higher-power topo_proto suite
+- `outputs/suites/case141_fedgrid_robust_rr_20260407_ms3` as the queued multi-seed robustness upgrade
 - `outputs/suites/case141_fedgrid_tune_seed2_rr_v1`
 - `outputs/suites/case141_fedgrid_main_rr_20260326` for the validation rerun
 - `outputs/suites/case141_fedgrid_robust_rr_20260326` as the completed robustness suite
@@ -89,6 +96,9 @@ Important main-suite artifacts:
 - `outputs/suites/case141_fedgrid_main_rr/reports/figures/random_reset_delta_ploss.png`
 - `outputs/suites/case141_fedgrid_main_rr_20260402_clean/agg/suite_paired_metrics.csv`
 - `outputs/suites/case141_fedgrid_main_rr_20260402_clean/reports/fedgrid_v6_report.md`
+- `outputs/suites/case141_fedgrid_main_rr_20260407_replica/agg/suite_paired_metrics.csv`
+- `outputs/suites/case141_fedgrid_main_rr_20260407_replica/agg/suite_seed_level_paired.csv`
+- `outputs/suites/case141_fedgrid_main_rr_20260407_replica/reports/fedgrid_v6_report.md`
 
 ## Important Evidence Constraints
 
@@ -98,6 +108,7 @@ Do not forget:
 - existing `main` artifacts are sufficient for auditing, but not yet sufficient for a strong positive method claim
 - current paired return deltas in the existing `main` suite are negative for `fedgrid_topo_proto` and `fedgrid_v4_cluster_distill`
 - the clean rerun `case141_fedgrid_main_rr_20260402_clean` changes the picture: `fedgrid_topo_proto` is weakly positive on paired return while `fedgrid_v4_cluster_distill` remains negative
+- the fresh independent main replica `case141_fedgrid_main_rr_20260407_replica` did not confirm that weakly positive sign: `fedgrid_topo_proto` returned to slightly negative paired return on both `random_reset` and `static`, while `fedgrid_v4_cluster_distill` became clearly negative
 - old non-deterministic follow-up results must not be used as final paper evidence
 - single-seed tuning results must not be used as headline paper evidence
 - the completed robustness suite is supporting evidence only because it is single-seed
@@ -114,7 +125,7 @@ Primary route:
 
 Conditional upgrade route:
 
-- if an independent fresh replica confirms the clean rerun, upgrade to a narrower method paper around `fedgrid_topo_proto` rather than the full clustered-distillation family
+- only if the running higher-power topo-proto suite overturns the current mixed-sign picture, upgrade to a narrower method paper around `fedgrid_topo_proto` rather than the full clustered-distillation family
 
 Backup route:
 
@@ -126,7 +137,7 @@ Second backup route:
 
 Current safe thesis:
 
-- deterministic, context-aligned reevaluation is necessary to judge which parts of the federated method family actually help under topology shift, and current evidence suggests `fedgrid_topo_proto` is more promising than clustered distillation
+- deterministic, context-aligned reevaluation is necessary to judge which parts of the federated method family actually help under topology shift, and current evidence suggests `fedgrid_topo_proto` is more promising than clustered distillation but still mixed-sign on the main benchmark
 
 Current unsafe thesis:
 
@@ -138,8 +149,9 @@ Current unsafe thesis:
 - the literature package now has a verified starter set, but it still needs broader coverage of nearest-neighbor task papers
 - code structure is still legacy-heavy even though documents are cleaner now
 - the corrected multi-seed ablation is complete, but the paper-story integration is still in progress
-- the legacy `case141_fedgrid_main_rr` suite and the clean rerun `case141_fedgrid_main_rr_20260402_clean` disagree on the sign of `fedgrid_topo_proto`, which is now the main experimental blocker
+- the historical `case141_fedgrid_main_rr` suite, the clean rerun `case141_fedgrid_main_rr_20260402_clean`, and the fresh replica `case141_fedgrid_main_rr_20260407_replica` still disagree on the sign of `fedgrid_topo_proto`, which is now the main experimental blocker
 - the clean rerun manifest needs caution because resumed single-seed launches overwrote the manifest-level `seeds` field even though the aggregate outputs are 3-seed
+- the Q1 queue is now the main operational path: the higher-power topo_proto suite must finish before the queued multi-seed robustness upgrade can fire
 
 ## Operational Do And Don't
 
@@ -153,8 +165,9 @@ Do:
 - use `outputs/automation_logs/fedgrid_status.md` as the first-stop operational status board
 - treat a completed full artifact set as the ground truth even if a stale monitor heartbeat keeps the suite marked as running
 - use the corrected multi-seed ablation result before deciding whether any more expensive rerun is justified
-- compare `case141_fedgrid_main_rr` and `case141_fedgrid_main_rr_20260402_clean` before freezing the manuscript thesis
+- compare `case141_fedgrid_main_rr`, `case141_fedgrid_main_rr_20260402_clean`, and `case141_fedgrid_main_rr_20260407_replica` before freezing the manuscript thesis
 - treat manifest metadata in resumed suites as auditable but potentially lossy when seeds were launched separately
+- use `outputs/automation_logs/fedgrid_q1_autopilot_status.md` as the first-stop board for the current Q1 queue rather than the older general board
 
 Do not:
 
@@ -182,13 +195,15 @@ Near-term:
 
 - treat `case141_fedgrid_main_rr` as the historical main evidence package
 - treat `case141_fedgrid_main_rr_20260402_clean` as the current-workspace reproduction package
+- treat `case141_fedgrid_main_rr_20260407_replica` as the freshest independent main evidence package
 - use `case141_fedgrid_main_rr_20260326` only as validation evidence for the current environment and dry run
 - treat `case141_fedgrid_robust_rr_20260326` as completed supporting robustness evidence
 - treat `case141_fedgrid_ablation_custom_rr_20260327` as exploratory single-seed evidence only
 - treat `case141_fedgrid_ablation_custom_rr_20260327_ms3` as the key completed multi-seed ablation suite for the current cycle
-- keep drafting the paper around the empirical-analysis framing while reconciling the finished clean rerun with the older main suite
+- keep drafting the paper around the empirical-analysis framing while reconciling the historical main suite, the clean rerun, and the fresh replica
+- keep the running `case141_fedgrid_topoproto_power_rr_20260407` suite alive and let the queued `case141_fedgrid_robust_rr_20260407_ms3` suite fire afterward
 
 After that:
 
-- run an independent fresh main replica before choosing between the empirical-first route and a narrower `topo_proto` method paper
+- use the higher-power topo_proto suite to decide whether the narrow method route is still viable
 - only consider the optional `full` run after the main-sign discrepancy is resolved

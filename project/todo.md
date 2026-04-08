@@ -11,7 +11,7 @@
 - [x] Write an audit note comparing `case141_fedgrid_main_rr` and `case141_fedgrid_main_rr_20260402_clean`, including the `fedgrid_topo_proto` sign flip and the clean-rerun manifest caveat.
 - [x] Decide whether to continue or stop the live `case141_fedgrid_main_rr_20260326` duplicate rerun.
 - [x] Package the existing completed main suite into `docs/paper_package/`.
-- [ ] Refresh `docs/paper_package/` and `submission/manuscript.md` so they reflect the finished clean rerun and finished multi-seed ablation rather than the older partially negative-only story.
+- [x] Refresh `docs/paper_package/` and `submission/manuscript.md` so they reflect the finished clean rerun, the finished multi-seed ablation, and the new negative fresh replica rather than the older partially negative-only story.
 
 ## Research
 
@@ -25,16 +25,16 @@
 - [x] Run custom multi-seed ablation with `fedgrid_v4_cluster_nodistill` and `fedgrid_v4_cluster_gentle` in `case141_fedgrid_ablation_custom_rr_20260327_ms3`.
 - [x] Run `robustness`.
 - [x] Decide that `full` is not auto-queued in this cycle and should remain opt-in unless robustness plus ablation leave a decisive evidence gap.
-- [ ] Run an independent fresh main replica under a new dated suite name to resolve the `case141_fedgrid_main_rr` versus `case141_fedgrid_main_rr_20260402_clean` discrepancy.
-- [ ] If the fresh main replica keeps `fedgrid_topo_proto` positive, run a higher-power `fedgrid_none` versus `fedgrid_topo_proto` follow-up with at least 5 seeds.
-- [ ] Upgrade robustness from a single-seed observation to a multi-seed supporting suite if the main replica still leaves the paper thesis open.
+- [x] Run an independent fresh main replica under a new dated suite name to resolve the `case141_fedgrid_main_rr` versus `case141_fedgrid_main_rr_20260402_clean` discrepancy.
+- [ ] Finish the already-running higher-power `fedgrid_none` versus `fedgrid_topo_proto` follow-up and use it to quantify whether the mixed-sign main-benchmark result is merely unstable or actually positive in the narrower comparison.
+- [ ] Finish the multi-seed robustness upgrade so the supporting evidence is no longer single-seed.
 
 ## Live Queue
 
 - [x] Launch `case141_fedgrid_robust_rr_20260326` in the background.
 - [x] Verify `case141_fedgrid_robust_rr_20260326` completed with manifests, agg outputs, tables, figures, and report.
 - [x] Decide that the next automated expensive run is the custom ablation suite.
-- [ ] Keep `scripts/fedgrid_autopilot.py` running until the live custom ablation suite finishes cleanly.
+- [x] Keep `scripts/fedgrid_autopilot.py` running until the live custom ablation suite finishes cleanly.
 - [x] Repair the broken custom-ablation queue launch path.
 - [x] Recover the custom ablation under the clean suite name `case141_fedgrid_ablation_custom_rr_20260327`.
 - [x] Detect that `case141_fedgrid_ablation_custom_rr_20260327` was still only single-seed and should remain exploratory.
@@ -50,7 +50,7 @@
 - [x] Write `paper/related_work.md` from verified citations.
 - [x] Tighten contributions to only what experiments support.
 - [x] Assemble `submission/manuscript.md`.
-- [ ] Rewrite the manuscript narrative around one of two routes after the fresh replica: empirical evaluation paper if signs remain unstable, or narrow `fedgrid_topo_proto` paper if the positive effect reproduces.
+- [x] Rewrite the manuscript narrative around the empirical-first route after the negative fresh replica, while treating the running topo-proto power suite as uncertainty reduction rather than headline proof.
 
 ## Cleanup
 
@@ -63,7 +63,8 @@
 - [x] Create a dedicated Q1 queue file at `project/experiments/runs/q1_queue_20260407.json`.
 - [x] Add Q1 launcher and status scripts.
 - [x] Start the Q1 background autopilot.
-- [ ] Finish `case141_fedgrid_main_rr_20260407_replica`.
+- [x] Finish `case141_fedgrid_main_rr_20260407_replica`.
+- [x] Recover the Q1 queue after the stalled `resume_needed` state and get `case141_fedgrid_topoproto_power_rr_20260407` running again.
 - [ ] Finish `case141_fedgrid_topoproto_power_rr_20260407`.
 - [ ] Finish `case141_fedgrid_robust_rr_20260407_ms3`.
 - [ ] Refresh manuscript and paper package against the completed Q1 queue outputs.

@@ -16,6 +16,7 @@ D:\Anaconda\envs\tianshou_env\python.exe run_case141_fedgrid_v6.py --project_roo
 
 - The historical suite `case141_fedgrid_main_rr` is retained because it carries the original negative main-benchmark result.
 - The clean rerun `case141_fedgrid_main_rr_20260402_clean` is the current working-draft main package.
+- The fresh replica `case141_fedgrid_main_rr_20260407_replica` is the strongest current check on whether the clean rerun reproduced, and it keeps the paper route empirical-first.
 - The corrected multi-seed ablation `case141_fedgrid_ablation_custom_rr_20260327_ms3` is the current working-draft ablation package.
 
 ## Current Q1 Queue

@@ -1,5 +1,5 @@
 {
-  "action": "status_only",
+  "action": "wait",
   "current_suite": "case141_fedgrid_topoproto_power_rr_20260407",
   "statuses": [
     {
@@ -7,7 +7,7 @@
       "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_main_rr_20260407_replica",
       "phase": "complete",
       "running": false,
-      "process_count": 1,
+      "process_count": 0,
       "recent_stdout": false,
       "recent_stderr": false,
       "expected_runs": 9,
@@ -38,18 +38,18 @@
       "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_topoproto_power_rr_20260407",
       "phase": "running",
       "running": true,
-      "process_count": 2,
-      "recent_stdout": true,
+      "process_count": 1,
+      "recent_stdout": false,
       "recent_stderr": false,
       "expected_runs": 10,
-      "checkpoints": 2,
-      "eval_files": 0,
+      "checkpoints": 11,
+      "eval_files": 25,
       "agg_files": 0,
       "report_files": 0,
       "required_outputs": {
-        "manifests/fedgrid_v6_run_matrix.csv": false,
-        "manifests/fedgrid_v6_commands.csv": false,
-        "manifests/fedgrid_v6_suite_manifest.json": false,
+        "manifests/fedgrid_v6_run_matrix.csv": true,
+        "manifests/fedgrid_v6_commands.csv": true,
+        "manifests/fedgrid_v6_suite_manifest.json": true,
         "agg/suite_absolute_metrics.csv": false,
         "agg/suite_paired_metrics.csv": false,
         "agg/suite_rankings.csv": false,
@@ -62,7 +62,7 @@
       },
       "monitor": null,
       "goal": "Increase statistical power for the topo_proto versus baseline comparison.",
-      "latest_log_run": "GNN-FMASAC_case141_fedgrid_none_seed0_20260407-120107"
+      "latest_log_run": "GNN-FMASAC_case141_fedgrid_topo_proto_seed4_20260408-084746"
     },
     {
       "suite_name": "case141_fedgrid_robust_rr_20260407_ms3",
@@ -96,5 +96,5 @@
       "latest_log_run": null
     }
   ],
-  "timestamp": "2026-04-07 12:42:24"
+  "timestamp": "2026-04-08 14:02:07"
 }

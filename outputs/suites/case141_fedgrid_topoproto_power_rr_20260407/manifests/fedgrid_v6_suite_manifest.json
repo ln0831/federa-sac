@@ -1,0 +1,28 @@
+{
+  "suite_name": "case141_fedgrid_topoproto_power_rr_20260407",
+  "suite_preset": "main",
+  "paper_tag": "main_table",
+  "project_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle",
+  "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_topoproto_power_rr_20260407",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "methods": [
+    {
+      "label": "fedgrid_none",
+      "fed_mode": "none",
+      "group": "baseline"
+    },
+    {
+      "label": "fedgrid_topo_proto",
+      "fed_mode": "topo_proto",
+      "fed_proto_source": "hybrid",
+      "group": "baseline_plus"
+    }
+  ],
+  "matrix_csv": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_topoproto_power_rr_20260407\\manifests\\fedgrid_v6_run_matrix.csv"
+}
