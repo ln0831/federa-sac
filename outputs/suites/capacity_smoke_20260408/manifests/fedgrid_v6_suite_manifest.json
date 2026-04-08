@@ -1,0 +1,18 @@
+{
+  "suite_name": "capacity_smoke_20260408",
+  "suite_preset": "main",
+  "paper_tag": "main_table",
+  "project_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle",
+  "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\capacity_smoke_20260408",
+  "seeds": [
+    0
+  ],
+  "methods": [
+    {
+      "label": "fedgrid_none",
+      "fed_mode": "none",
+      "group": "baseline"
+    }
+  ],
+  "matrix_csv": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\capacity_smoke_20260408\\manifests\\fedgrid_v6_run_matrix.csv"
+}

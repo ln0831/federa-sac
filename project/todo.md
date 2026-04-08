@@ -26,6 +26,11 @@
 - [x] Run `robustness`.
 - [x] Decide that `full` is not auto-queued in this cycle and should remain opt-in unless robustness plus ablation leave a decisive evidence gap.
 - [x] Run an independent fresh main replica under a new dated suite name to resolve the `case141_fedgrid_main_rr` versus `case141_fedgrid_main_rr_20260402_clean` discrepancy.
+- [x] Stop the old live queue after the 2026-04-08 failure-mode audit instead of spending more compute on the pre-fix code path.
+- [x] Refactor the active training and runner path to add explicit experiment seeds, fixed validation episode sets, delayed federated warmup, safer federation defaults, and paper-aligned `outage_k=4`.
+- [x] Re-audit the repaired code path before resuming experiments.
+- [ ] Finish the repaired fresh main replica `case141_fedgrid_main_rr_20260408_auditfix5`.
+- [ ] Decide the next repaired queue after `auditfix5`, with the leading options being a repaired topo-proto power rerun and a repaired multi-seed robustness rerun.
 - [ ] Finish the already-running higher-power `fedgrid_none` versus `fedgrid_topo_proto` follow-up and use it to quantify whether the mixed-sign main-benchmark result is merely unstable or actually positive in the narrower comparison.
 - [ ] Finish the multi-seed robustness upgrade so the supporting evidence is no longer single-seed.
 
@@ -65,6 +70,7 @@
 - [x] Start the Q1 background autopilot.
 - [x] Finish `case141_fedgrid_main_rr_20260407_replica`.
 - [x] Recover the Q1 queue after the stalled `resume_needed` state and get `case141_fedgrid_topoproto_power_rr_20260407` running again.
+- [x] Stop the Q1 queue before more compute after the 2026-04-08 failure-mode audit.
 - [ ] Finish `case141_fedgrid_topoproto_power_rr_20260407`.
 - [ ] Finish `case141_fedgrid_robust_rr_20260407_ms3`.
 - [ ] Refresh manuscript and paper package against the completed Q1 queue outputs.

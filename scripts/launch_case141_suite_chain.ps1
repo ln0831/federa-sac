@@ -6,11 +6,16 @@ param(
     [string]$Methods = "preset",
     [string[]]$Seeds = @("0", "1", "2"),
     [string]$TrainTopologyMode = "random_reset",
-    [int]$OutageK = 6,
+    [int]$OutageK = 4,
     [string]$OutagePolicy = "local",
     [int]$OutageRadius = 2,
     [int]$Gpu = 0,
     [int]$Epochs = 100,
+    [int]$ExperimentSeedBase = 7000,
+    [int]$ValSeedBase = 17000,
+    [int]$FedStartAfter = 2000,
+    [switch]$FedResetOptimizers,
+    [switch]$FedApplyTrustGate,
     [switch]$SkipExisting
 )
 
@@ -36,8 +41,18 @@ $runnerArgs = @(
     "--outage_radius", $OutageRadius,
     "--gpu", $Gpu,
     "--epochs", $Epochs,
+    "--experiment_seed_base", $ExperimentSeedBase,
+    "--val_seed_base", $ValSeedBase,
+    "--fed_start_after", $FedStartAfter,
     "--no_post"
 )
+
+if (-not $FedResetOptimizers) {
+    $runnerArgs += "--no_fed_reset_optimizers"
+}
+if (-not $FedApplyTrustGate) {
+    $runnerArgs += "--no_fed_apply_trust_gate"
+}
 
 if ($SkipExisting) {
     $runnerArgs += "--skip_existing"

@@ -1,0 +1,2 @@
+suite_name,suite_preset,paper_tag,seed,label,group,exp_name,ckpt,ckpt_status_pre,fed_mode,ckpt_status_post,ckpt_bytes
+capacity_smoke_20260408,main,main_table,0,fedgrid_none,baseline,case141_fedgrid_none_seed0,C:\Users\ASUS\Desktop\runtime_bundle\outputs\suites\capacity_smoke_20260408\checkpoints\best_case141_fedgrid_none_seed0.pth,missing,none,missing,0

@@ -1,0 +1,20 @@
+[
+  {
+    "suite_name": "case141_fedgrid_main_rr_20260408_auditfix5",
+    "preset": "main",
+    "methods": "preset",
+    "seeds": [0, 1, 2],
+    "train_topology_mode": "random_reset",
+    "outage_k": 4,
+    "outage_policy": "local",
+    "outage_radius": 2,
+    "gpu": 0,
+    "epochs": 100,
+    "experiment_seed_base": 7000,
+    "val_seed_base": 17000,
+    "fed_start_after": 2000,
+    "fed_reset_optimizers": false,
+    "fed_apply_trust_gate": false,
+    "goal": "Run a fresh post-audit main replica on the repaired pipeline."
+  }
+]

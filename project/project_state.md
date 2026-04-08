@@ -22,6 +22,9 @@ Completed foundations:
 
 Current focus:
 
+- stop the old Q1 queue after the 2026-04-08 failure-mode audit, repair the execution path, and use the repaired main replica as the new live source of truth
+- keep the repaired `case141_fedgrid_main_rr_20260408_auditfix5` suite alive under system-level scheduling until it completes cleanly
+- use the repaired run, not the older mixed launcher state, to judge whether the main benchmark remains mixed-sign after the seed, validation, and federation fixes
 - keep the running `case141_fedgrid_topoproto_power_rr_20260407` suite alive and let the queued multi-seed robustness upgrade fire afterward
 - update the project narrative so the finished fresh main replica, not the older clean rerun alone, drives the current paper stance
 - treat `fedgrid_topo_proto` as mixed-sign evidence that still needs higher-power confirmation rather than a frozen positive headline
@@ -85,6 +88,13 @@ Reason:
 
 Current execution state:
 
+- on 2026-04-08, the active Q1 queue was intentionally stopped after the failure-mode audit identified code-level threats to seed handling, validation stability, federated warmup timing, optimizer resets, trust gating, and default outage severity
+- the active training path was then repaired and re-audited before more compute was allowed to continue
+- the repaired execution defaults are now: `outage_k=4`, explicit `experiment_seed` and `val_seed_base`, fixed validation episode sets across epochs, federated rounds gated until local learning actually starts, no optimizer reset after federated rounds by default, and no extra trust gate by default
+- because ordinary background child processes are reclaimed in the current Codex shell environment, the repaired queue now runs under the Windows scheduled task `CodexFedGridAuditfixAutopilot`
+- the current live suite is `case141_fedgrid_main_rr_20260408_auditfix5`
+- the current repaired queue file is `project/experiments/runs/auditfix_queue_20260408.json`
+- the current repaired status board is `outputs/automation_logs/fedgrid_auditfix_autopilot_status.md`
 - the corrected `case141_fedgrid_ablation_custom_rr_20260327_ms3` suite has already completed train, eval, summarize, table export, figure generation, and markdown report generation
 - `case141_fedgrid_main_rr_20260402_clean` is complete as a 3-seed package at the artifact level: 10 checkpoints, 30 eval files, aggregate CSVs, LaTeX tables, figures, and markdown report are all present
 - `case141_fedgrid_main_rr_20260407_replica` has completed train, eval, summarize, table export, figure generation, and markdown report generation
@@ -118,6 +128,8 @@ Current orchestration layer:
 
 ## Unresolved Questions
 
+- The repaired `case141_fedgrid_main_rr_20260408_auditfix5` suite still needs to finish so the post-audit code path has a complete main-benchmark evidence package.
+- After the repaired main suite finishes, the next repaired follow-up queue still needs to decide whether to rerun the narrower topo-proto power comparison, the multi-seed robustness upgrade, or both under the corrected defaults.
 - Existing artifacts still contain some historical path drift.
 - The literature package exists, but it is still a starter set and needs broader coverage of the exact nearest-neighbor task papers.
 - The exploratory `case141_fedgrid_ablation_custom_rr_20260327` suite should not be mistaken for the final multi-seed ablation evidence.

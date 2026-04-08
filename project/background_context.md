@@ -31,6 +31,8 @@ Current active execution chain:
 - `make_fedgrid_report_v6.py`
 - `scripts/fedgrid_autopilot.py`
 - `scripts/launch_fedgrid_autopilot.ps1`
+- `scripts/run_fedgrid_auditfix_autopilot.ps1`
+- `scripts/run_fedgrid_auditfix_autopilot.cmd`
 - `scripts/launch_fedgrid_q1_autopilot.ps1`
 - `scripts/show_fedgrid_q1_status.ps1`
 
@@ -74,6 +76,7 @@ Important existing suites:
 - `outputs/suites/case141_fedgrid_main_rr`
 - `outputs/suites/case141_fedgrid_main_rr_20260402_clean` as the clean current-workspace rerun
 - `outputs/suites/case141_fedgrid_main_rr_20260407_replica` as the fresh independent main replica
+- `outputs/suites/case141_fedgrid_main_rr_20260408_auditfix5` as the current repaired post-audit main replica
 - `outputs/suites/case141_fedgrid_topoproto_power_rr_20260407` as the running higher-power topo_proto suite
 - `outputs/suites/case141_fedgrid_robust_rr_20260407_ms3` as the queued multi-seed robustness upgrade
 - `outputs/suites/case141_fedgrid_tune_seed2_rr_v1`
@@ -145,6 +148,7 @@ Current unsafe thesis:
 
 ## Known Risks
 
+- the current Codex shell environment reclaims ordinary background child processes, so durable long-running experiments must use a system-level host such as Windows Task Scheduler instead of relying on `Start-Process` from the shell alone
 - some historical artifacts still reference the old path `C:\Users\ASUS\Desktop\fuxian\...`
 - the literature package now has a verified starter set, but it still needs broader coverage of nearest-neighbor task papers
 - code structure is still legacy-heavy even though documents are cleaner now
@@ -196,14 +200,15 @@ Near-term:
 - treat `case141_fedgrid_main_rr` as the historical main evidence package
 - treat `case141_fedgrid_main_rr_20260402_clean` as the current-workspace reproduction package
 - treat `case141_fedgrid_main_rr_20260407_replica` as the freshest independent main evidence package
+- treat `case141_fedgrid_main_rr_20260408_auditfix5` as the current repaired source-of-truth run in progress
 - use `case141_fedgrid_main_rr_20260326` only as validation evidence for the current environment and dry run
 - treat `case141_fedgrid_robust_rr_20260326` as completed supporting robustness evidence
 - treat `case141_fedgrid_ablation_custom_rr_20260327` as exploratory single-seed evidence only
 - treat `case141_fedgrid_ablation_custom_rr_20260327_ms3` as the key completed multi-seed ablation suite for the current cycle
 - keep drafting the paper around the empirical-analysis framing while reconciling the historical main suite, the clean rerun, and the fresh replica
-- keep the running `case141_fedgrid_topoproto_power_rr_20260407` suite alive and let the queued `case141_fedgrid_robust_rr_20260407_ms3` suite fire afterward
+- keep the repaired `case141_fedgrid_main_rr_20260408_auditfix5` suite alive under `CodexFedGridAuditfixAutopilot` until it completes cleanly
 
 After that:
 
-- use the higher-power topo_proto suite to decide whether the narrow method route is still viable
+- use the repaired main suite to decide which post-audit follow-up should run next, with the narrower topo_proto power rerun and the multi-seed robustness rerun still the leading candidates
 - only consider the optional `full` run after the main-sign discrepancy is resolved

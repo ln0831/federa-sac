@@ -275,3 +275,36 @@ Reason:
 - In the fresh replica, `fedgrid_topo_proto` is slightly negative on mean paired return on both `random_reset` and `static`, even though it still wins `2/3` seeds.
 - `fedgrid_v4_cluster_distill` is clearly negative in the same replica and goes `0/3` on paired return wins.
 - This is enough to reject a stable positive main-benchmark headline for now, even though the narrower topo-proto follow-up is still worth finishing.
+
+## 2026-04-08: Stop the pre-fix live queue before spending more compute
+
+Decision:
+
+- Stop the active Q1 queue, apply the failure-mode fixes, and only then resume experiments on a fresh repaired suite.
+
+Reason:
+
+- The code audit found real execution-path issues affecting the meaning of additional compute: incomplete experiment seeding, unstable validation episode selection, federated rounds starting before local learning, aggressive optimizer resets, double trust gating, and a harder-than-paper default outage setting.
+- Continuing the old queue would have mixed new evidence with a code path we no longer trusted.
+
+## 2026-04-08: Use a repaired fresh main replica as the next source-of-truth experiment
+
+Decision:
+
+- Launch `case141_fedgrid_main_rr_20260408_auditfix5` as the first post-audit suite and use it to judge the corrected main-benchmark behavior before restarting narrower follow-up queues.
+
+Reason:
+
+- The main benchmark is still the thesis-setting experiment, so the first repaired rerun should target that benchmark directly.
+- A fresh suite name keeps the post-audit evidence clearly separated from the earlier mixed launcher states.
+
+## 2026-04-08: Host the repaired autopilot through Windows Task Scheduler
+
+Decision:
+
+- Run the repaired queue through the scheduled task `CodexFedGridAuditfixAutopilot` instead of relying on ordinary shell-launched background child processes.
+
+Reason:
+
+- In the current Codex shell environment, ordinary background child processes are reclaimed even for trivial delayed-write tests.
+- The scheduled task host keeps the long-running experiment alive outside the current shell lifecycle while still using the same workspace and `tianshou_env` interpreter.

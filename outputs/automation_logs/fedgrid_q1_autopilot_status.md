@@ -1,8 +1,8 @@
 # FedGrid Task Status
 
-- Updated: `2026-04-08 14:02:07`
-- Autopilot action: `wait`
-- Current suite: `case141_fedgrid_topoproto_power_rr_20260407`
+- Updated: `2026-04-08 14:07:36`
+- Autopilot action: `status_only`
+- Current suite: `case141_fedgrid_robust_rr_20260407_ms3`
 
 ## Queue
 ### case141_fedgrid_main_rr_20260407_replica
@@ -26,8 +26,8 @@
 ```
 
 ### case141_fedgrid_topoproto_power_rr_20260407
-- Phase: `running`
-- Running: `True`
+- Phase: `complete`
+- Running: `False`
 - Checkpoints: `11`
 - Expected runs: `10`
 - Goal: Increase statistical power for the topo_proto versus baseline comparison.
@@ -46,11 +46,25 @@
 ```
 
 ### case141_fedgrid_robust_rr_20260407_ms3
-- Phase: `missing`
-- Running: `False`
+- Phase: `running`
+- Running: `True`
 - Checkpoints: `0`
 - Expected runs: `12`
 - Goal: Upgrade robustness evidence from single-seed to multi-seed support.
+- Latest run dir: `GNN-FMASAC_case141_fedgrid_none_seed0_20260408-140719`
+- Latest epoch: `0` [WARMUP] RewardSum `-15.20` Reward/Step `-0.16` Loss `0.3958 MW` Alpha `0.200`
+- Training log updated: `2026-04-08 14:07:35`
+- Recent log tail:
+```text
+[Env] Case 141 网络构建及缓存完成。
+[Env] 正在通过 Python Loader 构建 case141 网络...
+[Env] 已添加 14 个 PV (2.0 MVA) 和 5 个 SVC。
+[Env] Case 141 网络构建及缓存完成。
+[GNN] Building agent adjacency for GraphMixer...
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+[GNN Utils] Agent Adjacency Matrix Constructed. mode=inv_z, normalize=True, shape=(4, 4)
+Epoch 0 [WARMUP]: RewardSum -15.20 | Reward/Step -0.16, Loss 0.3958 MW, Alpha 0.200
+```
 
 ## Files
 - State JSON: `C:\Users\ASUS\Desktop\runtime_bundle\outputs\automation_logs\fedgrid_q1_autopilot_state.json`

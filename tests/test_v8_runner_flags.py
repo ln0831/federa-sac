@@ -70,3 +70,31 @@ def test_tune_seed2_preset_expands_new_cluster_variants(tmp_path: Path) -> None:
     out = subprocess.check_output(cmd, text=True)
     assert "case141_fedgrid_v4_cluster_nodistill_seed2" in out
     assert "case141_fedgrid_v4_cluster_gentle_seed2" in out
+
+
+def test_runner_forwards_reproducibility_and_federation_safety_flags(tmp_path: Path) -> None:
+    root = Path(__file__).resolve().parents[1]
+    suite_root = tmp_path / "repro-fed-safety"
+    cmd = [
+        sys.executable,
+        str(root / "run_case141_fedgrid_v6.py"),
+        "--project_root", str(root),
+        "--suite_root", str(suite_root),
+        "--seeds", "0",
+        "--epochs", "1",
+        "--val_episodes", "1",
+        "--eval_episodes", "1",
+        "--experiment_seed_base", "7000",
+        "--val_seed_base", "17000",
+        "--fed_start_after", "2000",
+        "--no_fed_reset_optimizers",
+        "--no_fed_apply_trust_gate",
+        "--dry_run",
+        "--no_post",
+    ]
+    out = subprocess.check_output(cmd, text=True)
+    assert "--experiment_seed 7000" in out
+    assert "--val_seed_base 17000" in out
+    assert "--fed_start_after 2000" in out
+    assert "--no_fed_reset_optimizers" in out
+    assert "--no_fed_apply_trust_gate" in out

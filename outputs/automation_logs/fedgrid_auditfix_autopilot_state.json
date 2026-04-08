@@ -1,0 +1,38 @@
+{
+  "action": "status_only",
+  "current_suite": "case141_fedgrid_main_rr_20260408_auditfix5",
+  "statuses": [
+    {
+      "suite_name": "case141_fedgrid_main_rr_20260408_auditfix5",
+      "suite_root": "C:\\Users\\ASUS\\Desktop\\runtime_bundle\\outputs\\suites\\case141_fedgrid_main_rr_20260408_auditfix5",
+      "phase": "running",
+      "running": true,
+      "process_count": 0,
+      "recent_stdout": true,
+      "recent_stderr": false,
+      "expected_runs": 9,
+      "checkpoints": 2,
+      "eval_files": 0,
+      "agg_files": 0,
+      "report_files": 0,
+      "required_outputs": {
+        "manifests/fedgrid_v6_run_matrix.csv": false,
+        "manifests/fedgrid_v6_commands.csv": false,
+        "manifests/fedgrid_v6_suite_manifest.json": false,
+        "agg/suite_absolute_metrics.csv": false,
+        "agg/suite_paired_metrics.csv": false,
+        "agg/suite_rankings.csv": false,
+        "reports/fedgrid_v6_report.md": false,
+        "reports/latex/table_main_random_reset.tex": false,
+        "reports/latex/table_appendix_static.tex": false,
+        "reports/figures/random_reset_delta_return.png": false,
+        "reports/figures/random_reset_delta_vviol.png": false,
+        "reports/figures/random_reset_delta_ploss.png": false
+      },
+      "monitor": null,
+      "goal": "Run a fresh post-audit main replica on the repaired pipeline.",
+      "latest_log_run": "GNN-FMASAC_case141_fedgrid_none_seed0_20260408-181333"
+    }
+  ],
+  "timestamp": "2026-04-08 18:26:09"
+}

@@ -11,6 +11,11 @@ from fedgrid_federated import (
     estimate_module_payload_bits,
 )
 from networks import LocalActor
+from train_gnn_fedgrid import (
+    derive_experiment_seed,
+    should_run_federated_round,
+    trust_source_gate,
+)
 
 
 def test_cluster_masking_and_payload():
@@ -52,3 +57,42 @@ def test_peer_distillation_runs():
         same_cluster_only=False,
     )
     assert loss >= 0.0
+
+
+def test_should_run_federated_round_waits_until_local_learning_starts() -> None:
+    assert not should_run_federated_round(
+        fed_mode="topo_proto",
+        fed_round_every=1,
+        epoch=0,
+        total_steps=96,
+        fed_start_after=2000,
+        local_updates_started=False,
+    )
+    assert not should_run_federated_round(
+        fed_mode="topo_proto",
+        fed_round_every=1,
+        epoch=20,
+        total_steps=2016,
+        fed_start_after=2000,
+        local_updates_started=False,
+    )
+    assert should_run_federated_round(
+        fed_mode="topo_proto",
+        fed_round_every=1,
+        epoch=20,
+        total_steps=2050,
+        fed_start_after=2000,
+        local_updates_started=True,
+    )
+
+
+def test_trust_source_gate_is_opt_in() -> None:
+    trust = torch.tensor([0.2, 0.8], dtype=torch.float32)
+    assert trust_source_gate(trust, apply_gate=False) is None
+    gated = trust_source_gate(trust, apply_gate=True)
+    assert torch.allclose(gated, trust)
+
+
+def test_derive_experiment_seed_uses_base_seed_if_present() -> None:
+    assert derive_experiment_seed(None, topology_seed=2) == 2
+    assert derive_experiment_seed(7002, topology_seed=2) == 7002

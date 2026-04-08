@@ -22,11 +22,16 @@ class SuiteSpec:
     methods: str
     seeds: List[int]
     train_topology_mode: str = "random_reset"
-    outage_k: int = 6
+    outage_k: int = 4
     outage_policy: str = "local"
     outage_radius: int = 2
     gpu: int = 0
     epochs: int = 100
+    experiment_seed_base: int = 7000
+    val_seed_base: int = 17000
+    fed_start_after: int = 2000
+    fed_reset_optimizers: bool = False
+    fed_apply_trust_gate: bool = False
     goal: str = ""
 
 
@@ -222,11 +227,16 @@ def load_queue_from_json(path: Path) -> List[SuiteSpec]:
                     methods=str(item.get("methods", "preset")),
                     seeds=[int(seed) for seed in item.get("seeds", [0, 1, 2])],
                     train_topology_mode=str(item.get("train_topology_mode", "random_reset")),
-                    outage_k=int(item.get("outage_k", 6)),
+                    outage_k=int(item.get("outage_k", 4)),
                     outage_policy=str(item.get("outage_policy", "local")),
                     outage_radius=int(item.get("outage_radius", 2)),
                     gpu=int(item.get("gpu", 0)),
                     epochs=int(item.get("epochs", 100)),
+                    experiment_seed_base=int(item.get("experiment_seed_base", 7000)),
+                    val_seed_base=int(item.get("val_seed_base", 17000)),
+                    fed_start_after=int(item.get("fed_start_after", 2000)),
+                    fed_reset_optimizers=bool(item.get("fed_reset_optimizers", False)),
+                    fed_apply_trust_gate=bool(item.get("fed_apply_trust_gate", False)),
                     goal=str(item.get("goal", "")),
                 )
             )
@@ -369,7 +379,7 @@ class Autopilot:
 
     def log(self, message: str) -> None:
         line = f"[{timestamp()}] {message}"
-        print(line)
+        print(line, flush=True)
         with self.history_path.open("a", encoding="utf-8") as handle:
             handle.write(line + "\n")
 
@@ -522,16 +532,25 @@ class Autopilot:
             str(spec.gpu),
             "--epochs",
             str(spec.epochs),
+            "--experiment_seed_base",
+            str(spec.experiment_seed_base),
+            "--val_seed_base",
+            str(spec.val_seed_base),
+            "--fed_start_after",
+            str(spec.fed_start_after),
             "--no_post",
             "--seeds",
         ]
         runner_args.extend([str(seed) for seed in spec.seeds])
+        if not spec.fed_reset_optimizers:
+            runner_args.append("--no_fed_reset_optimizers")
+        if not spec.fed_apply_trust_gate:
+            runner_args.append("--no_fed_apply_trust_gate")
         if resume:
             runner_args.append("--skip_existing")
         args_literal = ", ".join(ps_quote(arg) for arg in runner_args)
         script = "\n".join(
             [
-                "if (Test-Path Env:PATH) { Remove-Item Env:PATH -ErrorAction SilentlyContinue }",
                 f"$runnerArgs = @({args_literal})",
                 f"$proc = Start-Process -FilePath {ps_quote(self.python_exe)} -ArgumentList $runnerArgs -WorkingDirectory {ps_quote(str(self.root))} -WindowStyle Hidden -RedirectStandardOutput {ps_quote(str(logs['stdout']))} -RedirectStandardError {ps_quote(str(logs['stderr']))} -PassThru",
                 "$proc.Id",
@@ -553,13 +572,18 @@ class Autopilot:
             return
         pid_text = (result.stdout or "").strip().splitlines()
         pid_value = pid_text[-1].strip() if pid_text else "unknown"
-        time.sleep(2)
         mode = "resume" if resume else "launch"
-        if not (query_process_count(spec.suite_name) > 0 or is_recent(logs["stdout"], threshold_sec=30) or is_recent(logs["stderr"], threshold_sec=30)):
+        process_count = 0
+        for _ in range(5):
+            time.sleep(2)
+            process_count = query_process_count(spec.suite_name)
+            if process_count > 0:
+                break
+        if process_count <= 0:
             self.log(f"{mode}_failed[{spec.suite_name}] runner did not stay alive after Start-Process launch (pid={pid_value}).")
             return
         self.launch_monitor(spec)
-        self.log(f"{mode}[{spec.suite_name}] started in background with pid={pid_value}.")
+        self.log(f"{mode}[{spec.suite_name}] started in background with pid={pid_value} process_count={process_count}.")
 
     def inspect_all(self) -> List[Dict[str, object]]:
         return [inspect_suite(self.root, spec) for spec in self.queue]
@@ -628,6 +652,12 @@ def main() -> int:
         allow_full=args.allow_full,
         queue=queue,
         log_prefix=args.log_prefix,
+    )
+    autopilot.log(
+        "startup "
+        f"root={root} python_exe={args.python_exe} "
+        f"loop={args.loop} interval_sec={args.interval_sec} "
+        f"queue_json={args.queue_json.resolve() if args.queue_json else 'default'}"
     )
 
     if args.status_only:

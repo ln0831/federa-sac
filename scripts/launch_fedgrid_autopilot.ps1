@@ -19,10 +19,6 @@ New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $stdoutPath = Join-Path $logDir ($LogPrefix + ".stdout.log")
 $stderrPath = Join-Path $logDir ($LogPrefix + ".stderr.log")
 
-if (Test-Path Env:PATH) {
-    Remove-Item Env:PATH -ErrorAction SilentlyContinue
-}
-
 $args = @(
     (Join-Path $root "scripts\fedgrid_autopilot.py"),
     "--project_root", $root,

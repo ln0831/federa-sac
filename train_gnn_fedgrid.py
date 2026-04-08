@@ -1,6 +1,7 @@
 import torch
 import torch.optim as optim
 import torch.nn.functional as F
+import random
 try:
     from torch.utils.tensorboard import SummaryWriter
 except Exception:
@@ -179,6 +180,79 @@ def compute_bus_embeddings(bus_encoders, obs_list_tensors, *, detach: bool = Fal
         z_list = [z.detach() for z in z_list]
     return z_list
 
+
+def seed_all(seed: int) -> None:
+    seed = int(seed)
+    random.seed(seed)
+    np.random.seed(seed % (2**32 - 1))
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+
+
+def derive_experiment_seed(base_seed, topology_seed: int) -> int:
+    if base_seed is None:
+        return int(topology_seed)
+    return int(base_seed)
+
+
+def trust_source_gate(trust_vector, *, apply_gate: bool):
+    if not bool(apply_gate):
+        return None
+    return trust_vector
+
+
+def should_run_federated_round(
+    *,
+    fed_mode: str,
+    fed_round_every: int,
+    epoch: int,
+    total_steps: int,
+    fed_start_after: int,
+    local_updates_started: bool,
+) -> bool:
+    if str(fed_mode).lower() == 'none':
+        return False
+    if int(fed_round_every) <= 0:
+        return False
+    if int(total_steps) < int(fed_start_after):
+        return False
+    if not bool(local_updates_started):
+        return False
+    return ((int(epoch) + 1) % int(fed_round_every)) == 0
+
+
+def _capture_rng_state():
+    state = {
+        'python': random.getstate(),
+        'numpy': np.random.get_state(),
+        'torch': torch.random.get_rng_state(),
+    }
+    if torch.cuda.is_available():
+        state['cuda'] = torch.cuda.get_rng_state_all()
+    return state
+
+
+def _restore_rng_state(state) -> None:
+    random.setstate(state['python'])
+    np.random.set_state(state['numpy'])
+    torch.random.set_rng_state(state['torch'])
+    if torch.cuda.is_available() and 'cuda' in state:
+        torch.cuda.set_rng_state_all(state['cuda'])
+
+
+def reset_validation_env(env) -> None:
+    try:
+        setattr(env, 't', 0)
+    except Exception:
+        pass
+    be = _base_env(env)
+    if hasattr(be, 'episode_idx'):
+        try:
+            setattr(be, 'episode_idx', 0)
+        except Exception:
+            pass
+
 def add_bool_arg(parser: argparse.ArgumentParser, name: str, default: bool, help: str):
     """Add a boolean flag with both positive and negative forms.
 
@@ -209,6 +283,8 @@ class Opts:
         parser.add_argument('--log_dir', type=str, default='./logs', help='TensorBoard log root directory')
         parser.add_argument('--save_dir', type=str, default='./checkpoints', help='Checkpoint output directory')
         parser.add_argument('--exp_name', type=str, default='', help='Optional experiment name for log/checkpoint naming')
+        parser.add_argument('--experiment_seed', type=int, default=None, help='Global experiment seed. If omitted, reuse topology_seed.')
+        parser.add_argument('--val_seed_base', type=int, default=10000, help='Base seed for deterministic validation episodes.')
 
         # [训练超参]
         parser.add_argument('--epochs', type=int, default=None)
@@ -281,6 +357,7 @@ class Opts:
                             help='Federated mixing strategy: baseline topo/FedAvg or FedGrid-style prototype-aware consensus.')
         parser.add_argument('--fed_round_every', type=int, default=1, help='Federated aggregation frequency (epochs).')
         parser.add_argument('--fed_alpha', type=float, default=1.0, help='Aggregation strength (0..1).')
+        parser.add_argument('--fed_start_after', type=int, default=None, help='Do not run federated aggregation before this many environment steps.')
         add_bool_arg(parser, '--fed_use_base_topology', default=True,
                      help='Use base topology (pre-outage) for weight matrix W. Recommended for stability.')
         parser.add_argument('--fed_topo_weight', type=float, default=0.45, help='Weight of topology similarity in federated aggregation.')
@@ -318,6 +395,10 @@ class Opts:
         parser.add_argument('--fed_distill_logstd_weight', type=float, default=0.25, help='Relative weight of log-std alignment in actor distillation.')
         add_bool_arg(parser, '--fed_distill_same_cluster_only', default=True,
                      help='Restrict teacher sharing in peer distillation to clients from the same inferred cluster.')
+        add_bool_arg(parser, '--fed_reset_optimizers', default=False,
+                     help='Reset optimizer state after a federated round.')
+        add_bool_arg(parser, '--fed_apply_trust_gate', default=False,
+                     help='Apply trust gating a second time during parameter mixing / distillation.')
 
         # [Topology change / outage settings]
         # NOTE: default to 'static' so running without flags reproduces the original (no-topology-shift) setting.
@@ -447,6 +528,8 @@ class Opts:
         self.outage_radius = int(args.outage_radius)
         self.avoid_slack_hops = int(args.avoid_slack_hops)
         self.topology_seed = int(args.topology_seed)
+        self.experiment_seed = derive_experiment_seed(args.experiment_seed, self.topology_seed)
+        self.val_seed_base = int(args.val_seed_base)
 
         self.use_context = (not args.no_context)
 
@@ -465,6 +548,7 @@ class Opts:
         self.fed_mode = str(args.fed_mode).lower()
         self.fed_round_every = int(args.fed_round_every)
         self.fed_alpha = float(args.fed_alpha)
+        self.fed_start_after = int(args.fed_start_after) if args.fed_start_after is not None else None
         self.fed_use_base_topology = bool(args.fed_use_base_topology)
         self.fed_topo_weight = float(args.fed_topo_weight)
         self.fed_proto_weight = float(args.fed_proto_weight)
@@ -496,6 +580,8 @@ class Opts:
         self.fed_distill_batch_size = int(args.fed_distill_batch_size)
         self.fed_distill_logstd_weight = float(args.fed_distill_logstd_weight)
         self.fed_distill_same_cluster_only = bool(args.fed_distill_same_cluster_only)
+        self.fed_reset_optimizers = bool(args.fed_reset_optimizers)
+        self.fed_apply_trust_gate = bool(args.fed_apply_trust_gate)
 
         self.tau = 0.005
 
@@ -504,6 +590,8 @@ class Opts:
         self.update_after = 2000
         self.update_every = 50
         self.update_times = 50
+        if self.fed_start_after is None:
+            self.fed_start_after = int(self.update_after)
 
         self.log_dir = str(args.log_dir)
         self.save_dir = str(args.save_dir)
@@ -520,36 +608,43 @@ def validate(env, actors, bus_encoders, opts, step, tb_logger):
     """Deterministic evaluation.
     NOTE: LocalActor.forward() returns (mean, log_std). We must tanh(mean) to get a valid action.
     """
-    avg_ret = 0.0
-    for _ in range(opts.val_episodes):
-        obs_list = env.reset()
-        refresh_bus_encoders(env, bus_encoders)
-        ep_ret = 0
+    rng_state = _capture_rng_state()
+    try:
+        avg_ret = 0.0
+        reset_validation_env(env)
+        seed_base = int(getattr(opts, 'val_seed_base', 10000))
+        for ep in range(opts.val_episodes):
+            seed_all(seed_base + int(ep))
+            obs_list = env.reset()
+            refresh_bus_encoders(env, bus_encoders)
+            ep_ret = 0
 
-        for _ in range(opts.steps_per_epoch):
-            actions = []
-            with torch.no_grad():
-                obs_tensors = [torch.FloatTensor(obs_list[i]).unsqueeze(0).to(opts.device) for i in range(opts.num_agents)]
-                z_list = compute_bus_embeddings(bus_encoders, obs_tensors, detach=True) if (opts.use_bus_gnn and bus_encoders is not None) else None
-                for i in range(opts.num_agents):
-                    o_raw = obs_tensors[i]
-                    if z_list is not None:
-                        o = torch.cat([o_raw, z_list[i]], dim=1)
-                    else:
-                        o = o_raw
-                    mean, _ = actors[i].forward(o)
-                    a = torch.tanh(mean)  # deterministic action in [-1, 1]
-                    actions.append(a.cpu().numpy()[0])
+            for _ in range(opts.steps_per_epoch):
+                actions = []
+                with torch.no_grad():
+                    obs_tensors = [torch.FloatTensor(obs_list[i]).unsqueeze(0).to(opts.device) for i in range(opts.num_agents)]
+                    z_list = compute_bus_embeddings(bus_encoders, obs_tensors, detach=True) if (opts.use_bus_gnn and bus_encoders is not None) else None
+                    for i in range(opts.num_agents):
+                        o_raw = obs_tensors[i]
+                        if z_list is not None:
+                            o = torch.cat([o_raw, z_list[i]], dim=1)
+                        else:
+                            o = o_raw
+                        mean, _ = actors[i].forward(o)
+                        a = torch.tanh(mean)  # deterministic action in [-1, 1]
+                        actions.append(a.cpu().numpy()[0])
 
-            next_obs, rewards, done, _ = env.step(actions)
-            obs_list = next_obs
-            ep_ret += sum(rewards)
-            if done:
-                break
+                next_obs, rewards, done, _ = env.step(actions)
+                obs_list = next_obs
+                ep_ret += sum(rewards)
+                if done:
+                    break
 
-        avg_ret += ep_ret
+            avg_ret += ep_ret
 
-    avg_ret /= opts.val_episodes
+        avg_ret /= opts.val_episodes
+    finally:
+        _restore_rng_state(rng_state)
 
     if tb_logger:
         tb_logger.add_scalar('validate/return', avg_ret, step)
@@ -558,6 +653,7 @@ def validate(env, actors, bus_encoders, opts, step, tb_logger):
 
 def main():
     opts = Opts()
+    seed_all(opts.experiment_seed)
     
     try:
         dist_net_module = importlib.import_module(opts.env_module)
@@ -578,6 +674,7 @@ def main():
     print(f"Start Training GNN-FMASAC: {opts.case_name}")
     print(f"   Architecture: Graph Convolutional Mixer (Topology Aware)")
     print(f"   Batch={opts.batch_size}, ActorLR={opts.actor_lr}, CriticLR={opts.critic_lr}, Gamma={opts.gamma}")
+    print(f"   ExperimentSeed={opts.experiment_seed}, ValSeedBase={opts.val_seed_base}, FedStartAfter={opts.fed_start_after}")
     print("=" * 60)
     
     env_kwargs = dict(
@@ -808,6 +905,7 @@ def main():
     buffer = MultiAgentReplayBuffer(opts.buffer_size, opts.num_agents, obs_dims, act_dims, ctx_dim=ctx_dim)
     best_ret = -float('inf')
     total_steps = 0
+    total_update_count = 0
     
     # ================= 训练循环 =================
     for epoch in range(opts.epochs):
@@ -897,6 +995,7 @@ def main():
             if total_steps > opts.update_after and total_steps % opts.update_every == 0:
                 for _ in range(opts.update_times):
                     update_counts += 1
+                    total_update_count += 1
                     if opts.use_context:
                         b_obs, b_act, b_rew, b_next_obs, b_done, b_ctx, b_next_ctx = buffer.sample(opts.batch_size)
                         b_ctx = b_ctx.to(opts.device)
@@ -1083,7 +1182,14 @@ def main():
         )
         
         # =============== Structure-2: FedGrid-v2 federated aggregation ===============
-        if opts.fed_mode != 'none' and opts.fed_round_every > 0 and ((epoch + 1) % opts.fed_round_every == 0):
+        if should_run_federated_round(
+            fed_mode=opts.fed_mode,
+            fed_round_every=opts.fed_round_every,
+            epoch=epoch,
+            total_steps=total_steps,
+            fed_start_after=getattr(opts, 'fed_start_after', opts.update_after),
+            local_updates_started=(total_update_count > 0),
+        ):
             active_mask = sample_active_clients(
                 opts.num_agents,
                 float(getattr(opts, 'fed_client_dropout', 0.0)),
@@ -1215,6 +1321,11 @@ def main():
                     next_staleness = torch.where(reset_mask, torch.zeros_like(next_staleness), next_staleness)
                 fed_staleness = next_staleness
 
+            mix_source_gate = trust_source_gate(
+                fed_stats.get('trust_vector', None),
+                apply_gate=bool(getattr(opts, 'fed_apply_trust_gate', False)),
+            )
+
             if bus_encoders is not None and (not isinstance(bus_encoders, GlobalBusGCNEncoder)):
                 adaptive_parameter_mix(
                     bus_encoders, W, alpha=float(opts.fed_alpha),
@@ -1222,7 +1333,7 @@ def main():
                     active_mask=active_mask,
                     update_clip=float(getattr(opts, 'fed_update_clip', 0.0)),
                     trim_ratio=float(getattr(opts, 'fed_trim_ratio', 0.0)),
-                    source_gate=fed_stats.get('trust_vector', None),
+                    source_gate=mix_source_gate,
                 )
 
             adaptive_parameter_mix(
@@ -1231,7 +1342,7 @@ def main():
                 active_mask=active_mask,
                 update_clip=float(getattr(opts, 'fed_update_clip', 0.0)),
                 trim_ratio=float(getattr(opts, 'fed_trim_ratio', 0.0)),
-                source_gate=fed_stats.get('trust_vector', None),
+                source_gate=mix_source_gate,
             )
             adaptive_parameter_mix(
                 critics, W, alpha=float(opts.fed_alpha),
@@ -1239,7 +1350,7 @@ def main():
                 active_mask=active_mask,
                 update_clip=float(getattr(opts, 'fed_update_clip', 0.0)),
                 trim_ratio=float(getattr(opts, 'fed_trim_ratio', 0.0)),
-                source_gate=fed_stats.get('trust_vector', None),
+                source_gate=mix_source_gate,
             )
 
             fed_last_distill_loss = 0.0
@@ -1268,7 +1379,7 @@ def main():
                     active_mask=active_mask.to(opts.device),
                     cluster_ids=fed_last_clusters,
                     same_cluster_only=bool(getattr(opts, 'fed_distill_same_cluster_only', True)),
-                    source_gate=fed_stats.get('trust_vector', None),
+                    source_gate=mix_source_gate,
                     excluded_teacher_ids=byzantine_ids,
                 )
                 fed_last_stats['distill_loss'] = float(fed_last_distill_loss)
@@ -1284,10 +1395,11 @@ def main():
                     for te, e in zip(target_bus_encoders, bus_encoders):
                         te.load_state_dict(e.state_dict(), strict=False)
 
-            reset_optimizers_state(actor_optims)
-            reset_optimizers_state(critic_optims)
-            reset_optimizers_state(enc_optims)
-            reset_optimizers_state([mixer_optim])
+            if bool(getattr(opts, 'fed_reset_optimizers', False)):
+                reset_optimizers_state(actor_optims)
+                reset_optimizers_state(critic_optims)
+                reset_optimizers_state(enc_optims)
+                reset_optimizers_state([mixer_optim])
 
         if epoch % opts.val_interval == 0:
             val_ret = validate(val_env, actors, bus_encoders, opts, epoch, tb_logger)
@@ -1307,9 +1419,14 @@ def main():
                         'hidden_dim': int(getattr(opts, 'bus_gnn_hidden_dim', 0)),
                         'num_layers': int(getattr(opts, 'bus_gnn_layers', 0)),
                         'weight_mode': str(getattr(opts, 'bus_gnn_weight_mode', 'inv_z')),
+                        'use_base_topology': bool(getattr(opts, 'bus_gnn_use_base_topology', True)),
+                        'scope': str(getattr(opts, 'bus_gnn_scope', 'global')),
                     } if bus_encoders is not None else None,
                     'fedgrid_cfg': {
                         'fed_mode': str(getattr(opts, 'fed_mode', 'none')),
+                        'fed_start_after': int(getattr(opts, 'fed_start_after', opts.update_after)),
+                        'fed_apply_trust_gate': bool(getattr(opts, 'fed_apply_trust_gate', False)),
+                        'fed_reset_optimizers': bool(getattr(opts, 'fed_reset_optimizers', False)),
                         'clustered': bool(getattr(opts, 'fed_clustered', False)),
                         'cluster_knn': int(getattr(opts, 'fed_cluster_knn', 2)),
                         'cluster_threshold': float(getattr(opts, 'fed_cluster_threshold', 0.58)),
@@ -1320,6 +1437,14 @@ def main():
                         'distill_steps': int(getattr(opts, 'fed_distill_steps', 1)),
                         'distill_batch_size': int(getattr(opts, 'fed_distill_batch_size', 128)),
                         'distill_same_cluster_only': bool(getattr(opts, 'fed_distill_same_cluster_only', True)),
+                    },
+                    'run_cfg': {
+                        'experiment_seed': int(getattr(opts, 'experiment_seed', opts.topology_seed)),
+                        'val_seed_base': int(getattr(opts, 'val_seed_base', 10000)),
+                        'topology_seed': int(getattr(opts, 'topology_seed', 0)),
+                        'outage_k': int(getattr(opts, 'outage_k', 0)),
+                        'outage_policy': str(getattr(opts, 'outage_policy', 'local')),
+                        'outage_radius': int(getattr(opts, 'outage_radius', 0)),
                     },
                 }
                 legacy_path = os.path.join(opts.save_dir, f'best_model_gnn_{opts.case_name}.pth')

@@ -156,11 +156,15 @@ def add_bool_arg(parser: argparse.ArgumentParser, name: str, default: bool, help
 
 
 def build_common_flags(args, seed: int) -> List[str]:
+    experiment_seed = int(args.experiment_seed_base) + int(seed)
+    val_seed_base = int(args.val_seed_base) + (1000 * int(seed))
     flags = [
         "--case", "141",
         "--gpu", str(args.gpu),
         "--epochs", str(args.epochs),
         "--val_episodes", str(args.val_episodes),
+        "--experiment_seed", str(experiment_seed),
+        "--val_seed_base", str(val_seed_base),
         "--topology_mode", str(args.train_topology_mode),
         "--outage_k", str(args.outage_k),
         "--outage_policy", str(args.outage_policy),
@@ -174,9 +178,12 @@ def build_common_flags(args, seed: int) -> List[str]:
         "--mixer_gate_lr_scale", str(args.mixer_gate_lr_scale),
         "--edge_drop", str(args.edge_drop),
         "--bus_gnn_lr_scale", str(args.bus_gnn_lr_scale),
+        "--fed_start_after", str(args.fed_start_after),
     ]
     add_flag(flags, "bus_gnn_use_base_topology", bool(args.bus_gnn_use_base_topology))
     add_flag(flags, "mixer_use_base_topology", bool(args.mixer_use_base_topology))
+    add_flag(flags, "fed_reset_optimizers", bool(args.fed_reset_optimizers))
+    add_flag(flags, "fed_apply_trust_gate", bool(args.fed_apply_trust_gate))
     return flags
 
 
@@ -301,9 +308,11 @@ def main() -> None:
     ap.add_argument("--gpu", type=str, default="0")
     ap.add_argument("--epochs", type=int, default=100)
     ap.add_argument("--val_episodes", type=int, default=5)
+    ap.add_argument("--experiment_seed_base", type=int, default=7000)
+    ap.add_argument("--val_seed_base", type=int, default=17000)
     ap.add_argument("--train_topology_mode", type=str, default="random_reset", choices=["static", "random_reset"])
     ap.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2])
-    ap.add_argument("--outage_k", type=int, default=6)
+    ap.add_argument("--outage_k", type=int, default=4)
     ap.add_argument("--outage_policy", type=str, default="local", choices=["global", "local"])
     ap.add_argument("--outage_radius", type=int, default=2)
     ap.add_argument("--avoid_slack_hops", type=int, default=1)
@@ -316,6 +325,9 @@ def main() -> None:
     ap.add_argument("--mixer_gate_lr_scale", type=float, default=0.1)
     ap.add_argument("--edge_drop", type=float, default=0.10)
     ap.add_argument("--bus_gnn_lr_scale", type=float, default=0.1)
+    ap.add_argument("--fed_start_after", type=int, default=2000)
+    add_bool_arg(ap, "fed_reset_optimizers", default=False, help_text="reset optimizer state after federated rounds")
+    add_bool_arg(ap, "fed_apply_trust_gate", default=False, help_text="apply trust gating during parameter mixing and distillation")
     ap.add_argument("--eval_episodes", type=int, default=20)
     ap.add_argument("--eval_seed_base", type=int, default=1000)
     ap.add_argument("--eval_steps", type=int, default=None)

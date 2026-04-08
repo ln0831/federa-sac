@@ -152,6 +152,7 @@ def load_policy(env, ckpt_path: str, device):
         hidden_dim_e = int(bus_cfg.get("hidden_dim", 64))
         num_layers = int(bus_cfg.get("num_layers", 2))
         weight_mode = str(bus_cfg.get("weight_mode", "inv_z"))
+        use_base_topology = bool(bus_cfg.get("use_base_topology", True))
 
         if embed_dim <= 0:
             embed_dim = max(0, expected_state_dims[0] - raw_obs_dims[0])
@@ -171,7 +172,7 @@ def load_policy(env, ckpt_path: str, device):
                     num_layers=num_layers,
                     dropout=0.0,
                     weight_mode=weight_mode,
-                    use_base_topology=True,
+                    use_base_topology=use_base_topology,
                 )
                 bus_encoder.load_state_dict(bus_blob, strict=False)
                 bus_encoder.eval()
